@@ -14,8 +14,7 @@
 <section id="home" class="card">
 <h2>Bem-vindo!</h2><p>Escolha como deseja acessar:</p>
 <button class="primary wide" onclick="show('booking')">📅 Agendar atendimento</button>
-<button class="wide" onclick="show('staff')">👥 Entrar como funcionário</button>
-<button class="wide" onclick="show('admin')">⚙️ Painel da administradora</button>
+<button class="wide" onclick="show('staff')">🔒 Acesso da equipe</button>
 <p class="muted">Versão demonstrativa. Nenhuma reserva real será criada.</p>
 </section>
 <section id="booking" class="card hidden">
@@ -32,8 +31,8 @@
 </form><button class="wide" onclick="show('home')">Voltar ao início</button>
 </section>
 <section id="success" class="card hidden"><h2>✅ Reserva simulada!</h2><p>Veja como a confirmação aparecerá para o cliente:</p><div id="receipt" class="summary"></div><p class="muted">Demonstração: nenhum dado foi enviado ou salvo e nenhuma vaga real foi ocupada.</p><button class="primary wide" onclick="show('booking')">Simular outra reserva</button><button class="wide" onclick="show('home')">Voltar ao início</button></section>
-<section id="staff" class="card hidden"><h2>Área do funcionário</h2><div class="notice">Tela demonstrativa. Login, agenda compartilhada e permissões serão implementados com autenticação segura.</div><button class="wide" onclick="show('home')">Voltar ao início</button></section>
-<section id="admin" class="card hidden"><h2>⚙️ Painel da administradora</h2><div class="notice">Prévia sem login real. As mudanças funcionam apenas nesta página aberta.</div><label for="capacity">Vagas por horário</label><input id="capacity" type="number" min="1" max="100" value="5"><label for="team">Limite de funcionários</label><input id="team" type="number" min="1" max="200" value="15"><label for="interval">Intervalo entre horários</label><select id="interval"><option value="30">30 minutos</option><option value="60">60 minutos</option></select><h3>Funcionamento semanal</h3><div id="days"></div><button class="primary wide" onclick="applySettings()">Aplicar nesta demonstração</button><div id="adminMessage" class="muted"></div><button class="wide" onclick="show('home')">Voltar ao início</button></section>
+<section id="staff" class="card hidden"><h2>🔒 Acesso da equipe Micropro</h2><p class="muted">Aqui haverá login com e-mail e senha para administradora, supervisor e funcionário.</p><div class="notice">⚠️ Ainda não existe autenticação. Não digite senhas reais nesta demonstração.</div><button class="primary wide" onclick="show('admin')">Ver prévia do painel administrativo (sem login)</button><button class="wide" onclick="show('home')">Voltar ao início</button></section>
+<section id="admin" class="card hidden"><h2>⚙️ Painel da administradora</h2><div class="notice">DEMONSTRAÇÃO SEM PROTEÇÃO: não use dados reais. Na versão definitiva, esta área exigirá login de administradora e autorização no servidor. As mudanças funcionam apenas nesta página aberta.</div><label for="capacity">Vagas por horário</label><input id="capacity" type="number" min="1" max="100" value="5"><label for="team">Limite de funcionários</label><input id="team" type="number" min="1" max="200" value="15"><label for="interval">Intervalo entre horários</label><select id="interval"><option value="30">30 minutos</option><option value="60">60 minutos</option></select><h3>Funcionamento semanal</h3><div id="days"></div><button class="primary wide" onclick="applySettings()">Aplicar nesta demonstração</button><div id="adminMessage" class="muted"></div><button class="wide" onclick="show('staff')">Voltar à área da equipe</button></section>
 </main><footer>Micropro Agenda • Protótipo local • Sem agendamentos reais</footer>
 <script>
 const names=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
