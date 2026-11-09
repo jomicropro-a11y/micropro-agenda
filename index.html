@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Micropro Agenda</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f1f6ff; text-align: center; padding: 60px 20px; }
-    h1 { color: #1646a0; }
-    p { color: #475569; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micropro Agenda</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f6ff;color:#16325c}
+header{background:#1245a5;color:white;padding:24px;text-align:center}
+header h1{margin:0 0 8px}
+main{max-width:460px;margin:40px auto;padding:20px}
+.card{background:white;padding:28px;border-radius:18px;box-shadow:0 6px 22px #183b731c;text-align:center}
+h2{color:#1245a5}
+button{display:block;width:100%;padding:16px;margin:12px 0;border:1px solid #bdd1f3;border-radius:12px;background:white;color:#1245a5;font-size:16px;font-weight:bold;cursor:pointer}
+button.principal{background:#1557d2;color:white;border-color:#1557d2}
+button:hover{filter:brightness(.95)}
+.aviso{font-size:13px;color:#64748b;margin-top:22px}
+footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
+</style>
 </head>
 <body>
-  <h1>Micropro Agenda</h1>
-  <p>Bem-vindo ao nosso sistema de agendamentos!</p>
-  <p>Em breve: agendamentos, equipe e painel administrativo.</p>
+<header>
+<h1>📅 Micropro Agenda</h1>
+<p>Seu atendimento começa aqui</p>
+</header>
+<main>
+<section class="card">
+<h2>Bem-vindo!</h2>
+<p>Escolha como deseja acessar:</p>
+<button class="principal" onclick="mostrar('Agendamento de clientes')">📅 Agendar atendimento</button>
+<button onclick="mostrar('Acesso dos funcionários')">👥 Entrar como funcionário</button>
+<button onclick="mostrar('Painel da administradora')">⚙️ Painel da administradora</button>
+<p class="aviso" id="mensagem">Estamos preparando seu aplicativo.</p>
+</section>
+</main>
+<footer>Micropro Agenda • Versão de demonstração</footer>
+<script>
+function mostrar(area){
+document.getElementById('mensagem').textContent=area+' — em desenvolvimento. Nenhum agendamento será criado.';
+}
+</script>
 </body>
 </html>
