@@ -58,11 +58,11 @@
   </button>
 </section>
 <section id="admin" class="card hidden"><h2>⚙️ Painel da administradora</h2><div class="notice">DEMONSTRAÇÃO SEM PROTEÇÃO: não use dados reais. Na versão definitiva, esta área exigirá login de administradora e autorização no servidor. As mudanças funcionam apenas nesta página aberta.</div><label for="capacity">Vagas por horário</label><input id="capacity" type="number" min="1" max="100" value="5"><label for="team">Limite de funcionários</label><input id="team" type="number" min="1" max="200" value="15"><label for="interval">Intervalo entre horários</label><select id="interval"><option value="30">30 minutos</option><option value="60">60 minutos</option></select><h3>Funcionamento semanal</h3><div id="days"></div><button class="primary wide" onclick="applySettings()">Aplicar nesta demonstração</button><div id="adminMessage" class="muted"></div><button class="wide" onclick="show('staff')">Voltar à área da equipe</button></section>
-</main><footer>Micropro Agenda • Protótipo local • Sem agendamentos reais</footer>
+</main><footer>Agenda • Sistema de agendamentos</footer>
 <script>
 const SUPABASE_URL = 'https://pyaqqeuawfamnapfdrjj.supabase.co/';
 const SUPABASE_PUBLIC_KEY = 'sb_publishable_P4Wr82hpsEGHdzUyXJqBnA_Y_szlPnD';
-<footer>Agenda • Sistema de agendamentos</footer>
+
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLIC_KEY
