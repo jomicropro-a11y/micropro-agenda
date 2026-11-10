@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Micropro Agenda — Demonstração</title>
+<title>Agenda</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f1f6ff;color:#16325c}header{background:#1245a5;color:white;text-align:center;padding:24px 12px}header h1{margin:0 0 8px}main{max-width:600px;margin:25px auto;padding:12px}.card{background:white;padding:24px;border-radius:18px;box-shadow:0 6px 22px #183b731c;margin-bottom:15px}h2{color:#1245a5;margin-top:0}button{cursor:pointer;border:1px solid #bdd1f3;border-radius:10px;padding:12px;background:white;color:#1245a5;font-size:15px;font-weight:bold}button.primary{background:#1557d2;color:white;border-color:#1557d2}button:disabled{opacity:.45;cursor:not-allowed}.wide{width:100%;margin:6px 0}label{display:block;font-size:13px;font-weight:bold;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #bdd1f3;border-radius:9px;font-size:15px}.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:14px 0}.slot.active{background:#1557d2;color:white}.muted{color:#64748b;font-size:13px}.hidden{display:none}.notice{padding:12px;border-radius:10px;background:#e0f2fe;margin:12px 0}.ok{background:#dcfce7;color:#166534}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.day{padding:12px 0;border-bottom:1px solid #e2e8f0}.day .row{margin-top:7px}.day input{min-width:0}footer{text-align:center;color:#64748b;font-size:12px;padding:20px}.summary{background:#f1f6ff;border-radius:12px;padding:15px;line-height:1.8;overflow-wrap:anywhere}@media(max-width:420px){.slots{grid-template-columns:repeat(2,1fr)}.card{padding:18px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
-<header><h1>📅 Micropro Agenda</h1><div>Seu atendimento começa aqui</div></header>
+<header><h1>📅 Agenda</h1><div>Seu atendimento começa aqui</div></header>
 <main>
 <section id="home" class="card">
 <h2>Bem-vindo!</h2><p>Escolha como deseja acessar:</p>
@@ -33,7 +33,7 @@
 </section>
 <section id="success" class="card hidden"><h2>✅ Reserva simulada!</h2><p>Veja como a confirmação aparecerá para o cliente:</p><div id="receipt" class="summary"></div><p class="muted">Demonstração: nenhum dado foi enviado ou salvo e nenhuma vaga real foi ocupada.</p><button class="primary wide" onclick="show('booking')">Simular outra reserva</button><button class="wide" onclick="show('home')">Voltar ao início</button></section>
 <section id="staff" class="card hidden">
-  <h2>🔒 Acesso da equipe Micropro</h2>
+  <h2>🔒 Acesso da equipe</h2>
   <p class="muted">Entre com seu e-mail e senha.</p>
 
   <form id="loginForm">
@@ -62,7 +62,7 @@
 <script>
 const SUPABASE_URL = 'https://pyaqqeuawfamnapfdrjj.supabase.co/';
 const SUPABASE_PUBLIC_KEY = 'sb_publishable_P4Wr82hpsEGHdzUyXJqBnA_Y_szlPnD';
-
+<footer>Agenda • Sistema de agendamentos</footer>
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLIC_KEY
