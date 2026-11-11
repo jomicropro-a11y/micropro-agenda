@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101d40"><title>Agenda • Micropro</title>
+<style>
+:root{--navy:#101d40;--blue:#135ce8;--ink:#17213a;--muted:#617088;--line:#e1e6f0;--bg:#edf2fa;--teal:#00a8a7;--green:#04aa50;--yellow:#eda800}*{box-sizing:border-box}body{margin:0;font:15px/1.48 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.hidden{display:none!important}.site-header{background:#1647a6;color:white;padding:26px 18px;text-align:center}.site-header h1{margin:0;font-size:30px}.site-header p{margin:3px 0 0;font-size:16px}.site-header.compact{display:none}.page{max-width:1020px;margin:24px auto;padding:0 15px}.paper{background:#fff;border-radius:23px;padding:24px;box-shadow:0 12px 36px rgba(17,34,73,.07);margin-bottom:16px}.paper h2{margin:0 0 14px;font-size:23px}.muted{color:var(--muted)}.small{font-size:12px}.btn{border:1px solid #c8d5ea;border-radius:13px;padding:12px 16px;background:#fff;color:#17418c;font-weight:700}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.dark{background:#151515;border-color:#151515;color:#fff}.btn.ghost{background:transparent;color:#fff;border-color:#ffffff66}.btn.full{width:100%;margin-top:10px}.btn:focus-visible,.tab-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #75b3ff;outline-offset:2px}label{display:block;font-weight:700;margin:13px 0 6px}input,textarea,select{display:block;width:100%;background:#fff;border:1px solid #c7d2e4;border-radius:12px;padding:12px;color:var(--ink)}textarea{min-height:90px;resize:vertical}.notice{padding:13px 15px;background:#fff4d9;border-radius:12px;color:#75511a;font-size:13px;margin:15px 0}.note-blue{background:#e7f2ff;color:#194c87}.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}.slot{padding:12px;border:1px solid #b5c7e4;border-radius:12px;background:white;color:#17418c}.slot.active{background:var(--blue);color:#fff}.receipt{padding:15px;background:#f1f5fb;border-radius:12px}.app{background:var(--navy);border-radius:26px;overflow:hidden;max-width:980px;margin:auto;padding:19px 19px 0;color:white}.app-top{display:flex;align-items:center;gap:12px;margin-bottom:21px}.app-icon{display:grid;place-items:center;background:#0758e8;color:#fff;border-radius:16px;width:57px;height:57px;font-size:29px;flex-shrink:0}.brand{flex:1}.brand strong{font-size:23px;letter-spacing:.3px}.brand span{display:block;color:#b6c5e6;font-size:14px}.app-body{color:#171717}.app-card{background:#fff;color:#151515;border-radius:23px;padding:22px;margin-bottom:17px}.app-card h2{font-size:22px;color:#121212;margin:0 0 12px;line-height:1.2}.eyebrow{color:#666;margin:0 0 8px}.greeting{font-size:25px;line-height:1.15;font-weight:800;margin:7px 0 18px}.seg{display:flex;gap:4px;padding:4px;background:#eceff5;border-radius:13px}.seg button{border:0;border-radius:10px;padding:10px 9px;flex:1;font-weight:700;background:transparent;color:#516073}.seg button.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px #0d4ce82b}.period-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:13px 0}.period-bar .period-label{text-align:center;font-weight:700;font-size:13px;color:#49566c}.period-bar button{padding:6px 10px;border:1px solid var(--line);border-radius:9px;background:#fff}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f1f1f1;padding:17px 15px;border-radius:18px;min-height:112px}.stat span{display:block;font-size:16px;font-weight:650;color:#626262}.stat strong{font-size:33px;display:block;margin-top:6px;line-height:1.2}.stat:nth-child(1) strong{color:#075bff}.stat:nth-child(2) strong{color:var(--teal)}.stat:nth-child(3) strong{color:var(--green)}.stat:nth-child(4) strong{color:var(--yellow)}.placeholder{display:block;color:#8290a3!important}.fineprint{font-size:12px;color:#777;margin:14px 0 0}.status-list{display:flex;flex-direction:column;gap:12px}.status-row{display:flex;justify-content:space-between;align-items:center;border-left:4px solid #d3d8e0;padding:9px 0 9px 14px;gap:10px}.status-row b{font-size:15px}.status-row span{display:block;color:#717171;font-size:13px}.empty{background:#f3f5f8;border-radius:13px;padding:17px;color:#5a6676;font-size:14px}.actions{display:flex;gap:9px;flex-wrap:wrap}.actions>*{flex:1;min-width:140px}.section-label{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#64718a;font-weight:800}.tab-button{background:none;border:0;color:#b6c4e4;font-weight:650;font-size:12px;display:flex;align-items:center;gap:5px;flex-direction:column;min-width:0;justify-content:center;padding:13px 0 18px}.tab-button .sym{font-size:22px;line-height:1}.tab-button.active{color:#fff}.bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;position:sticky;bottom:0;background:var(--navy);z-index:3;padding-bottom:env(safe-area-inset-bottom)}.teamline{font-size:12px;color:#bdcce8;margin:0 0 15px;text-align:right}.badge{font-size:11px;font-weight:700;padding:5px 9px;background:#e9f0ff;color:#1951ba;border-radius:99px;white-space:nowrap}.filter-chips{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}.filter-chips span{padding:7px 10px;border-radius:99px;background:#eff3fa;color:#456;font-size:12px}.form-divider{border:0;border-top:1px solid var(--line);margin:20px 0}.foot{text-align:center;padding:20px;font-size:12px;color:#72809a}.loading{color:#617088}.app button:focus-visible{outline:3px solid #93c5fd}#loginMessage,#dpMessage{min-height:1.5em}#dpMessage{color:#25558b}.backlink{margin-top:13px}.date-input{width:auto;max-width:100%}@media(max-width:580px){.page{margin:14px auto;padding:0 9px}.paper{padding:19px}.app{padding:15px 14px 0;border-radius:23px}.app-card{padding:18px;border-radius:20px}.greeting{font-size:24px}.brand strong{font-size:21px}.stat{padding:14px 12px}.stat span{font-size:14px}.site-header{padding:19px}.slots{grid-template-columns:repeat(2,1fr)}}
+.bottom-nav.has-settings{grid-template-columns:repeat(5,1fr)}.bottom-nav:not(.has-settings){grid-template-columns:repeat(4,1fr)}.contact-card{border:1px solid var(--line);border-radius:15px;padding:15px;margin:12px 0;background:#fff}.contact-head{display:flex;justify-content:space-between;align-items:start;gap:9px}.contact-name{font-weight:750;overflow-wrap:anywhere}.contact-meta{font-size:13px;color:#5b687b;margin:5px 0 12px;overflow-wrap:anywhere}.contact-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.contact-action{display:flex;justify-content:center;align-items:center;gap:7px;padding:11px;border-radius:11px;text-decoration:none;font-weight:750;min-height:44px}.contact-action.wa{background:#e5f8eb;color:#08783c;border:1px solid #a8e2ba}.contact-action.call{background:#e8f0ff;color:#154eb8;border:1px solid #bcd0f7}.contact-action:focus-visible{outline:3px solid #75b3ff;outline-offset:2px}.contact-disabled{font-size:12px;color:#80632d;margin-top:10px}#clientResults[aria-busy="true"]{opacity:.65}
+
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.settings-grid label{margin-top:0}.setting-day{padding:12px 0;border-bottom:1px solid var(--line)}.setting-day-top{display:flex;align-items:center;gap:10px}.setting-day-top label{margin:0}.setting-day-top input{width:auto;accent-color:var(--blue)}.setting-hours{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:4px 0 0 26px}.setting-hours input{width:100%}.setting-hours label{font-size:12px;color:#53627a}.settings-lock{background:#eaf2ff;color:#1b497f;border-radius:12px;padding:13px;font-size:13px}.settings-card .section-label{margin:20px 0 12px}@media(max-width:520px){.settings-grid{grid-template-columns:1fr}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<header class="site-header" id="siteHeader"><h1>📅 Agenda</h1><p>Seu atendimento começa aqui</p></header>
+<main class="page">
+<section class="paper" id="home"><h2>Bem-vindo!</h2><p>Escolha como deseja acessar:</p><button class="btn primary full" onclick="show('booking')">📅 Agendar atendimento</button><button class="btn full" onclick="show('staff')">🔒 Acesso da equipe</button><p class="muted small">O agendamento público ainda está em demonstração. Nenhuma reserva real será criada.</p></section>
+<section class="paper hidden" id="booking"><h2>Agendar atendimento</h2><div class="notice">Demonstração: o agendamento não será gravado e não ocupará vagas reais.</div><form id="bookingForm"><label for="clientName">Nome completo *</label><input id="clientName" required maxlength="100"><label for="phone">WhatsApp com DDD *</label><input id="phone" required inputmode="tel" maxlength="20"><label for="course">Curso de interesse *</label><select id="course" required><option value="">Selecione</option><option>Informática</option><option>Inglês</option><option>Administração</option><option>Excel</option><option>Marketing Digital</option><option>Outro curso</option></select><label for="date">Data *</label><input id="date" type="date" required><p class="muted small" id="dateInfo"></p><label>Horário *</label><div class="slots" id="slots"></div><p class="muted small">Horários ilustrativos. Nenhuma disponibilidade real foi consultada.</p><button class="btn primary full" type="submit">Simular agendamento</button></form><button class="btn full" onclick="show('home')">Voltar ao início</button></section>
+<section class="paper hidden" id="success"><h2>✅ Simulação concluída</h2><div id="receipt" class="receipt"></div><div class="notice">Este comprovante é ilustrativo: não há reserva real.</div><button class="btn primary full" onclick="show('booking')">Fazer outra simulação</button><button class="btn full" onclick="show('home')">Voltar ao início</button></section>
+<section class="paper hidden" id="staff"><h2>🔒 Acesso da equipe</h2><p class="muted">Entre com sua conta autorizada.</p><form id="loginForm"><label for="loginEmail">E-mail</label><input id="loginEmail" type="email" autocomplete="username" required><label for="loginPassword">Senha</label><input id="loginPassword" type="password" autocomplete="current-password" required><button class="btn primary full" type="submit">Entrar</button></form><p id="loginMessage" class="muted" role="status"></p><button class="btn full" onclick="show('home')">Voltar ao início</button></section>
+<section class="hidden" id="admin">
+<div class="app"><div class="app-top"><div class="app-icon">▣</div><div class="brand"><strong>MICROPRO</strong><span>Gestão de Agendamentos</span></div><button type="button" class="btn ghost" onclick="logout()" style="padding:9px 11px;font-size:12px">Sair</button></div>
+<div class="app-body">
+<div id="tab-dashboard" class="panel-tab"><div class="app-card"><p class="eyebrow" id="panelMonth">Painel de novembro</p><div class="greeting">Olá, equipe Micropro! 👋</div><div class="seg" aria-label="Período dos indicadores"><button class="active" type="button" data-period="day">Dia</button><button type="button" data-period="week">Semana</button><button type="button" data-period="month">Mês</button></div><div class="period-bar"><button type="button" id="periodPrev" aria-label="Período anterior">‹</button><span class="period-label" id="periodLabel">Hoje</span><button type="button" id="periodNext" aria-label="Próximo período">›</button></div><div class="stats"><div class="stat"><span>Agendados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Confirmados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Compareceram</span><strong class="placeholder">—</strong></div><div class="stat"><span>Reagendados</span><strong class="placeholder">—</strong></div></div><p class="fineprint">Os indicadores ainda aguardam integração aos agendamentos reais do Supabase; não exibimos números inventados.</p></div><div class="app-card"><div class="period-bar" style="margin:0 0 15px"><h2 style="margin:0">Agenda do dia</h2><span class="muted small" id="dayLabel"></span></div><div class="empty">Os atendimentos do dia aparecerão aqui depois da integração segura com os agendamentos.</div><button class="btn dark full" type="button" onclick="switchTab('agenda')">＋ Novo agendamento</button></div></div>
+<div id="tab-agenda" class="panel-tab hidden"><div class="app-card"><h2>Agenda</h2><p class="muted">Consulte o calendário, vagas e atendimentos.</p><label for="agendaDate">Escolher dia</label><input class="date-input" id="agendaDate" type="date"><div class="filter-chips"><span>Agendado • azul</span><span>Confirmado • turquesa</span><span>Compareceu • verde</span><span>Reagendado • amarelo</span></div><div class="empty">A criação e o reagendamento reais serão disponibilizados após implementação das regras de vagas e proteção no servidor. Nenhuma reserva é feita nesta tela.</div><button type="button" class="btn dark full" disabled>＋ Novo agendamento — em preparação</button></div></div>
+<div id="tab-clientes" class="panel-tab hidden"><div class="app-card"><h2>Clientes</h2><p class="muted">Contatos Robô e DP. O cadastro individual DP pode ser salvo no Supabase, conforme as permissões do login.</p><label for="clientSearch">Buscar por nome ou WhatsApp</label><input id="clientSearch" type="search" placeholder="Digite nome ou telefone" autocomplete="off" maxlength="70"><button type="button" class="btn primary full" id="clientSearchButton">🔎 Buscar clientes</button><p class="muted small">Resultados disponíveis conforme o acesso da sua conta. Não mostramos dados sem autorização.</p><div id="clientResults" aria-live="polite"></div><div class="filter-chips"><span>Todos</span><span>DPs</span><span>Robôs</span></div><div class="actions"><button type="button" class="btn primary" onclick="toggleDpForm()">＋ Cadastrar novo contato</button><button type="button" id="importButton" class="btn hidden" onclick="showImportNotice()">⇧ Importar planilha</button></div><form id="dpForm" class="hidden"><hr class="form-divider"><p class="section-label">Novo contato DP</p><label for="dpName">Nome completo *</label><input id="dpName" autocomplete="name" maxlength="120" required><label for="dpPhone">WhatsApp com DDD *</label><input id="dpPhone" inputmode="tel" maxlength="20" required placeholder="(43) 99999-9999"><label for="dpCourse">Curso de interesse (opcional)</label><input id="dpCourse" maxlength="150"><label for="dpNotes">Observações</label><textarea id="dpNotes" maxlength="3000"></textarea><label for="dpOwner">Responsável (identificado pelo login)</label><input id="dpOwner" disabled><div class="notice note-blue">Será cadastrado como <strong>DP</strong>. A identificação do responsável é validada pela regra do banco de dados. A prevenção definitiva de duplicidades ainda está em preparação.</div><button type="submit" class="btn primary full" id="dpSave">Salvar contato DP</button><p role="status" id="dpMessage"></p></form><div class="notice">A importação de planilhas ainda está em preparação. Os botões Ligar e WhatsApp aparecem nos resultados autorizados; os atendimentos da agenda serão conectados em uma etapa posterior.</div></div></div>
+<div id="tab-relatorios" class="panel-tab hidden"><div class="app-card"><h2>Relatórios</h2><p class="muted">Resultados por Dia, Semana, Mês, funcionário e origem DP/Robô.</p><div class="stats"><div class="stat"><span>Agendados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Comparecimentos</span><strong class="placeholder">—</strong></div></div><div class="notice">Os relatórios reais serão conectados ao Supabase em outra etapa.</div></div></div>
+<div id="tab-configuracoes" class="panel-tab hidden"><div class="app-card settings-card"><h2>⚙️ Configurações da administradora</h2><p class="muted">Organize os horários de atendimento, as vagas e a capacidade da equipe.</p><div class="settings-lock" id="settingsNotice" role="status">Faça login como administradora para carregar as configurações reais do Supabase. Alterações só serão enviadas quando clicar em Salvar.</div><div class="settings-grid"><div><label for="cfgVagas">Vagas por horário</label><input id="cfgVagas" type="number" min="1" max="100" value="5"></div><div><label for="cfgEquipe">Limite de funcionários</label><input id="cfgEquipe" type="number" min="1" max="500" value="15"></div><div><label for="cfgIntervalo">Intervalo entre horários</label><select id="cfgIntervalo"><option value="15">15 minutos</option><option value="30" selected>30 minutos</option><option value="60">60 minutos</option></select></div></div><p class="section-label">Funcionamento semanal</p><div id="settingsDays"></div><div class="notice">Mudanças futuras não cancelarão agendamentos existentes automaticamente. Os horários de novos agendamentos precisarão respeitar as configurações salvas e as regras de lotação no servidor.</div><button type="button" id="settingsSave" class="btn primary full" disabled>Salvar configurações</button></div></div>
+</div><p class="teamline" id="teamStatus"></p><nav class="bottom-nav" aria-label="Navegação da equipe"><button type="button" data-tab="dashboard" class="tab-button active"><span class="sym">⌂</span>Início</button><button type="button" data-tab="agenda" class="tab-button"><span class="sym">▦</span>Agenda</button><button type="button" data-tab="clientes" class="tab-button"><span class="sym">♧</span>Clientes</button><button type="button" data-tab="relatorios" class="tab-button"><span class="sym">▥</span>Relatórios</button><button type="button" data-tab="configuracoes" id="settingsTabButton" class="tab-button hidden"><span class="sym">⚙</span>Ajustes</button></nav></div>
+</section>
+</main><footer class="foot">Agenda • Sistema de agendamentos</footer>
+<script>
+'use strict';
+const SUPABASE_URL='https://pyaqqeuawfamnapfdrjj.supabase.co/';
+const SUPABASE_PUBLIC_KEY='sb_publishable_P4Wr82hpsEGHdzUyXJqBnA_Y_szlPnD';
+const db=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
+const $=id=>document.getElementById(id);const days=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+const schedule=[{on:false,start:'09:00',end:'15:00'},...Array.from({length:5},()=>({on:true,start:'09:00',end:'18:00'})),{on:true,start:'09:00',end:'15:00'}];let selectedTime='',userId=null,role=null;
+function show(id){if(id==='admin'&&!userId)id='staff';document.querySelectorAll('main>section').forEach(el=>el.classList.toggle('hidden',el.id!==id));$('siteHeader').classList.toggle('compact',id==='admin');if(id==='booking')renderSlots();window.scrollTo(0,0)}
+function parseDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(s))return null;const [y,m,d]=s.split('-').map(Number),dt=new Date(y,m-1,d,12);return dt.getFullYear()===y&&dt.getMonth()===m-1&&dt.getDate()===d?dt:null}
+function mins(s){const [h,m]=s.split(':').map(Number);return h*60+m}function clock(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function renderSlots(){const d=parseDate($('date').value),target=$('slots');target.replaceChildren();selectedTime='';if(!d){$('dateInfo').textContent='Escolha uma data para ver horários ilustrativos.';return}const cfg=schedule[d.getDay()];if(!cfg.on){$('dateInfo').textContent='Sem atendimento neste dia.';return}$('dateInfo').textContent=days[d.getDay()]+' • '+cfg.start+' às '+cfg.end;for(let t=mins(cfg.start);t+30<=mins(cfg.end);t+=30){const button=document.createElement('button');button.type='button';button.className='slot';button.textContent=clock(t);button.addEventListener('click',()=>{selectedTime=button.textContent;target.querySelectorAll('.slot').forEach(x=>x.classList.toggle('active',x===button))});target.appendChild(button)}}
+$('date').addEventListener('change',renderSlots);$('bookingForm').addEventListener('submit',e=>{e.preventDefault();const name=$('clientName').value.trim(),phone=$('phone').value.replace(/\D/g,''),d=parseDate($('date').value);if(!name||!/^\d{10,11}$/.test(phone)||!d||!selectedTime){alert('Confira os dados e selecione o horário.');return}const r=$('receipt');r.replaceChildren();for(const [k,v] of [['Cliente',name],['WhatsApp',$('phone').value],['Curso',$('course').value],['Data',$('date').value.split('-').reverse().join('/')],['Horário',selectedTime],['Situação','Apenas simulação']]){const p=document.createElement('p');p.textContent=k+': '+v;r.appendChild(p)}show('success')});
+// Prévia local do formulário da administradora. Não usa escrita no banco até validar schema/RLS.
+function drawSettingsDays(){
+ const target=$('settingsDays');target.replaceChildren();
+ days.forEach((day,i)=>{
+  const item=document.createElement('div');item.className='setting-day';
+  const top=document.createElement('div');top.className='setting-day-top';
+  const check=document.createElement('input');check.type='checkbox';check.id='cfgDia'+i;check.checked=schedule[i].on;
+  const label=document.createElement('label');label.htmlFor=check.id;label.textContent=day;
+  top.append(check,label);item.append(top);
+  const hours=document.createElement('div');hours.className='setting-hours';hours.hidden=!check.checked;
+  for(const [key,caption] of [['start','Abre'],['end','Fecha']]){
+   const wrap=document.createElement('div'),lbl=document.createElement('label'),field=document.createElement('input');
+   field.type='time';field.value=schedule[i][key];field.id='cfg'+key+i;lbl.htmlFor=field.id;lbl.textContent=caption;
+   field.addEventListener('change',()=>{schedule[i][key]=field.value});wrap.append(lbl,field);hours.append(wrap);
+  }
+  check.addEventListener('change',()=>{schedule[i].on=check.checked;hours.hidden=!check.checked});
+  item.append(hours);target.append(item);
+ });
+}
+drawSettingsDays();
+function switchTab(tab){if(tab==='configuracoes')loadSettings();if(!userId||(tab==='configuracoes'&&role!=='administradora'))return;for(const key of ['dashboard','agenda','clientes','relatorios','configuracoes']){$('tab-'+key).classList.toggle('hidden',key!==tab)}document.querySelectorAll('[data-tab]').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('active',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0)}document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+// Filtros visuais: contagens não são inventadas nem consultadas até integrar os agendamentos reais.
+let period='day',offset=0;const fmt=new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric'});function addDays(date,n){const d=new Date(date);d.setDate(d.getDate()+n);return d}function drawPeriod(){const now=new Date(),date=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);$('panelMonth').textContent='Painel de '+new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(now);$('dayLabel').textContent=new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long'}).format(now);let label='';if(period==='day')label=fmt.format(addDays(date,offset));else if(period==='week'){const monday=addDays(date,-((date.getDay()+6)%7)+offset*7);label=fmt.format(monday)+' a '+fmt.format(addDays(monday,6))}else{const m=new Date(date.getFullYear(),date.getMonth()+offset,1);label=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(m)}$('periodLabel').textContent=label;document.querySelectorAll('[data-period]').forEach(b=>b.classList.toggle('active',b.dataset.period===period))}document.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>{period=b.dataset.period;offset=0;drawPeriod()}));$('periodPrev').addEventListener('click',()=>{offset--;drawPeriod()});$('periodNext').addEventListener('click',()=>{offset++;drawPeriod()});drawPeriod();$('agendaDate').value=new Date().toLocaleDateString('en-CA');
+function toggleDpForm(){$('dpForm').classList.toggle('hidden')};function showImportNotice(){alert('Importação em lote será implementada depois, com prévia, análise de duplicidades e autorização no servidor. Não envie planilhas por esta tela.')}async function logout(){try{await db?.auth.signOut()}finally{userId=null;role=null;settingsLoaded=false;$('settingsSave').disabled=true;$('settingsTabButton').classList.add('hidden');document.querySelector('.bottom-nav').classList.remove('has-settings');$('loginPassword').value='';$('dpForm').reset();$('dpForm').classList.add('hidden');$('clientSearch').value='';$('clientResults').replaceChildren();show('home')}}
+async function authorize(){if(!db)throw Error('Serviço indisponível');const {data,error}=await db.auth.getUser();if(error||!data?.user)throw Error('Sessão inválida');const {data:kind,error:roleError}=await db.rpc('minha_funcao');if(roleError||!['administradora','supervisora','funcionário','funcionario'].includes(kind))throw Error('Sem permissão');userId=data.user.id;role=kind;$('teamStatus').textContent='Conectada: '+(data.user.email||'usuário')+' • '+kind;$('dpOwner').value=data.user.email||'Conta conectada';$('importButton').classList.toggle('hidden',kind!=='administradora');$('settingsTabButton').classList.toggle('hidden',kind!=='administradora');document.querySelector('.bottom-nav').classList.toggle('has-settings',kind==='administradora');switchTab('dashboard');show('admin')}
+// Configurações reais. O banco autoriza via RLS; esconder a aba não é um mecanismo de segurança.
+let settingsLoaded=false,settingsBusy=false;
+const cfgMsg=()=>$('settingsNotice');
+const validTime=s=>/^([01]\d|2[0-3]):[0-5]\d$/.test(s);
+function daySetting(i){return {dia_semana:i,aberto:!!schedule[i].on,hora_abertura:schedule[i].start,hora_fechamento:schedule[i].end};}
+async function verifyAdministrator(){
+ if(!db||!userId||role!=='administradora')throw new Error('Acesso não autorizado.');
+ const {data:me,error:authErr}=await db.auth.getUser();
+ if(authErr||me?.user?.id!==userId)throw new Error('Sessão expirada.');
+ const {data:currentRole,error:roleErr}=await db.rpc('minha_funcao');
+ if(roleErr||currentRole!=='administradora')throw new Error('Acesso administrativo não confirmado.');
+}
+async function loadSettings(){
+ if(settingsBusy||!userId||role!=='administradora')return;
+ settingsBusy=true;settingsLoaded=false;$('settingsSave').disabled=true;
+ cfgMsg().textContent='Carregando configurações reais...';
+ try{
+  await verifyAdministrator();
+  const [c,h]=await Promise.all([
+   db.from('configuracoes').select('id,vagas_por_horario,quantidade_funcionarios,intervalo_minutos').eq('id',1).single(),
+   db.from('horarios_funcionamento').select('dia_semana,aberto,hora_abertura,hora_fechamento').order('dia_semana')
+  ]);
+  if(c.error)throw c.error;if(h.error)throw h.error;
+  if(!h.data||h.data.length!==7||new Set(h.data.map(x=>x.dia_semana)).size!==7)throw new Error('A tabela de horários deve ter sete dias, de 0 a 6.');
+  $('cfgVagas').value=c.data.vagas_por_horario;
+  $('cfgEquipe').value=c.data.quantidade_funcionarios;
+  $('cfgIntervalo').value=String(c.data.intervalo_minutos);
+  for(const day of h.data){
+   const i=day.dia_semana;
+   if(!Number.isInteger(i)||i<0||i>6)throw new Error('Dia inválido');
+   schedule[i]={on:day.aberto,start:String(day.hora_abertura).slice(0,5),end:String(day.hora_fechamento).slice(0,5)};
+  }
+  drawSettingsDays();settingsLoaded=true;$('settingsSave').disabled=false;
+  cfgMsg().textContent='Configurações carregadas do Supabase. Confira os campos antes de salvar.';
+ }catch(err){cfgMsg().textContent='Não foi possível carregar as configurações. Nada foi alterado. Confira seu login e as políticas do Supabase.'}
+ finally{settingsBusy=false;}
+}
+async function saveSettings(){
+ if(!settingsLoaded||settingsBusy)return;
+ const vagas=Number($('cfgVagas').value),funcionarios=Number($('cfgEquipe').value),intervalo=Number($('cfgIntervalo').value);
+ if(!Number.isInteger(vagas)||vagas<1||vagas>100||!Number.isInteger(funcionarios)||funcionarios<1||funcionarios>500||![15,30,60].includes(intervalo)){
+  cfgMsg().textContent='Confira os números e o intervalo selecionado.';return;
+ }
+ for(let i=0;i<7;i++){
+  const a=$('cfgstart'+i).value,b=$('cfgend'+i).value;
+  if(!validTime(a)||!validTime(b)||(schedule[i].on&&mins(a)>=mins(b))){cfgMsg().textContent='Confira os horários de '+days[i]+'. A abertura precisa ser anterior ao fechamento.';return;}
+  schedule[i].start=a;schedule[i].end=b;
+ }
+ if(!confirm('Salvar as novas configurações da Agenda no Supabase?'))return;
+ settingsBusy=true;$('settingsSave').disabled=true;cfgMsg().textContent='Salvando configurações...';
+ let completed=0;
+ try{
+  await verifyAdministrator();
+  const {data:cfg,error:cfgErr}=await db.from('configuracoes')
+   .update({vagas_por_horario:vagas,quantidade_funcionarios:funcionarios,intervalo_minutos:intervalo})
+   .eq('id',1).select('id');
+  if(cfgErr||cfg?.length!==1)throw cfgErr||new Error('Configuração não atualizada');
+  completed++;
+  for(let i=0;i<7;i++){
+   const d=daySetting(i);
+   const {data,error}=await db.from('horarios_funcionamento')
+    .update({aberto:d.aberto,hora_abertura:d.hora_abertura,hora_fechamento:d.hora_fechamento})
+    .eq('dia_semana',i).select('dia_semana');
+   if(error||data?.length!==1)throw error||new Error('Dia não atualizado');
+   completed++;
+  }
+  cfgMsg().textContent='Configurações salvas com sucesso! Recarregue a aba Ajustes para conferir.';
+  if(!$('booking').classList.contains('hidden'))renderSlots();
+ }catch(err){
+  cfgMsg().textContent=completed>0
+   ?'Atenção: salvamento parcial ('+completed+' de 8 registros). Não repita imediatamente. Confira os valores no Supabase e recarregue a aba.'
+   :'Não foi possível salvar. Nenhum registro foi confirmado como atualizado. Confira seu login e as permissões.';
+ }finally{settingsBusy=false;$('settingsSave').disabled=false;}
+}
+$('settingsSave').addEventListener('click',saveSettings);
+
+// Consulta protegida por autenticação, GRANT e RLS do Supabase.
+// Funcionárias sem permissão SELECT não visualizam fichas; nunca contornar RLS no navegador.
+function phoneForContact(value){
+ const digits=String(value||'').replace(/\D/g,'');
+ if(/^\d{10,11}$/.test(digits))return '55'+digits;
+ if(/^55\d{10,11}$/.test(digits))return digits;
+ return null;
+}
+function makeContactLink(text,href,className){
+ const link=document.createElement('a');link.className='contact-action '+className;
+ link.href=href;link.textContent=text;
+ if(href.startsWith('https://')){link.target='_blank';link.rel='noopener noreferrer';}
+ return link;
+}
+function renderClientResults(rows){
+ const box=$('clientResults');box.replaceChildren();
+ if(!rows.length){const p=document.createElement('p');p.className='muted';p.textContent='Nenhum cliente encontrado para esta busca.';box.append(p);return;}
+ for(const c of rows.slice(0,25)){
+  const card=document.createElement('article');card.className='contact-card';
+  const head=document.createElement('div');head.className='contact-head';
+  const title=document.createElement('div');title.className='contact-name';title.textContent=c.nome||'Nome não informado';
+  const tag=document.createElement('span');tag.className='badge';tag.textContent=c.tipo_cliente==='ROBO'?'ROBÔ':'DP';
+  head.append(title,tag);card.append(head);
+  const info=document.createElement('div');info.className='contact-meta';
+  info.textContent='WhatsApp: '+(c.whatsapp||'Não informado')+(c.curso?' • Curso: '+c.curso:'');card.append(info);
+  const phone=phoneForContact(c.whatsapp);
+  if(phone){
+   const actions=document.createElement('div');actions.className='contact-actions';
+   actions.append(makeContactLink('📞 Ligar','tel:+'+phone,'call'),makeContactLink('💬 WhatsApp','https://wa.me/'+phone,'wa'));
+   card.append(actions);
+  }else{
+   const warn=document.createElement('div');warn.className='contact-disabled';warn.textContent='Telefone inválido ou incompleto. Confira antes de ligar ou enviar mensagem.';card.append(warn);
+  }
+  box.append(card);
+ }
+}
+async function searchClients(){
+ const box=$('clientResults'),button=$('clientSearchButton');
+ const raw=$('clientSearch').value.trim();
+ const cleaned=raw.normalize('NFC').replace(/[^\p{L}\p{N}\s.-]/gu,'').trim().slice(0,60);
+ const digits=raw.replace(/\D/g,'');
+ if(cleaned.length<2&&digits.length<4){box.textContent='Digite ao menos 2 letras ou 4 números para buscar.';return;}
+ if(!userId||!db){box.textContent='Entre com uma conta autorizada para pesquisar.';return;}
+ button.disabled=true;box.setAttribute('aria-busy','true');box.textContent='Pesquisando clientes autorizados...';
+ try{
+  const {data:auth,error:authErr}=await db.auth.getUser();
+  if(authErr||auth?.user?.id!==userId)throw Error('Sessão expirada');
+  const results=[];const ids=new Set();
+  // Consultas independentes, evitando interpolar operadores na expressão PostgREST .or().
+  if(cleaned.length>=2){
+   const {data,error}=await db.from('clientes').select('id,nome,whatsapp,curso,tipo_cliente').ilike('nome','%'+cleaned+'%').limit(25);
+   if(error)throw error;for(const row of data||[]){if(!ids.has(row.id)){ids.add(row.id);results.push(row)}}
+  }
+  if(digits.length>=4){
+   const {data,error}=await db.from('clientes').select('id,nome,whatsapp,curso,tipo_cliente').ilike('whatsapp','%'+digits+'%').limit(25);
+   if(error)throw error;for(const row of data||[]){if(!ids.has(row.id)){ids.add(row.id);results.push(row)}}
+  }
+  renderClientResults(results);
+ }catch(error){box.textContent='Não foi possível consultar os contatos com este perfil. Verifique as permissões da equipe no Supabase. Nenhum dado foi exibido.';}
+ finally{button.disabled=false;box.removeAttribute('aria-busy');}
+}
+$('clientSearchButton').addEventListener('click',searchClients);
+$('clientSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchClients()}});
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();const btn=e.currentTarget.querySelector('[type=submit]');btn.disabled=true;$('loginMessage').textContent='Verificando acesso...';try{if(!db)throw Error('Serviço indisponível');const {error}=await db.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error)throw error;await authorize();$('loginPassword').value='';$('loginMessage').textContent=''}catch(err){await db?.auth.signOut();userId=null;role=null;$('loginMessage').textContent='Não foi possível entrar. Confira sua conta e permissões.'}finally{btn.disabled=false}});
+$('dpForm').addEventListener('submit',async e=>{e.preventDefault();const btn=$('dpSave'),out=$('dpMessage'),name=$('dpName').value.trim(),phone=$('dpPhone').value.replace(/\D/g,''),course=$('dpCourse').value.trim(),notes=$('dpNotes').value.trim();if(name.length<2||!/^\d{10,11}$/.test(phone)){out.textContent='Digite um nome e WhatsApp válido com DDD.';return}btn.disabled=true;out.textContent='Salvando...';try{const {data:session,error:authErr}=await db.auth.getUser();if(authErr||!session?.user||session.user.id!==userId)throw Error('Sem sessão');const {data:kind,error:roleErr}=await db.rpc('minha_funcao');if(roleErr||kind!==role)throw Error('Permissão não confirmada');const {error}=await db.from('clientes').insert({nome:name,whatsapp:phone,curso:course||null,observacoes:notes||null,tipo_cliente:'DP',aba_origem:'Cadastro manual na Agenda',cadastrado_por:userId,dados_originais:{origem:'cadastro_manual_dp',criado_via:'Agenda'}});if(error)throw error;$('dpForm').reset();$('dpOwner').value=session.user.email||'Conta conectada';out.textContent='Contato DP salvo!';}catch(err){out.textContent='Não foi possível confirmar o cadastro. Antes de tentar novamente, confira no Supabase se o registro foi salvo.'}finally{btn.disabled=false}});
+</script>
+</body>
+</html>
