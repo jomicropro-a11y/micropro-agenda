@@ -27,6 +27,19 @@
 .badge[data-status="Sem interesse"]{background:#e5e7eb;color:#4b5563}
 
 .settings-grid > div, .day-row > div {min-width:0;} input[type="time"]{min-width:0;max-width:100%;box-sizing:border-box;}
+
+.stat{border:2px solid transparent;text-align:left;color:inherit;width:100%;min-width:0}.stat small{display:block;font-size:11px;color:#526279;margin-top:8px;font-weight:700}.stat[aria-expanded="true"]{border-color:var(--blue);background:#eaf1ff}.stat:focus-visible{outline:3px solid #75b3ff;outline-offset:2px}.stat:disabled{opacity:1;cursor:wait}.indicator-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.indicator-head h2{margin:0}.indicator-head .btn{padding:8px 12px}.indicator-details-card{border:1px solid var(--line);border-radius:12px;margin:9px 0;padding:12px;overflow-wrap:anywhere}#indicatorDetails{border-top:1px solid var(--line);margin-top:16px;padding-top:15px;scroll-margin-top:12px}.indicator-details-card .contact-meta{margin-bottom:8px}
+@media(max-width:768px){#admin .app{padding-bottom:calc(82px + env(safe-area-inset-bottom,0px));overflow:visible}#admin .bottom-nav{position:fixed;left:0;right:0;bottom:0;width:100%;z-index:50;padding:4px 8px calc(4px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px #101d4026;border-top:1px solid #ffffff26}#admin .tab-button{padding:9px 0 10px;min-height:58px;font-size:clamp(10px,2.9vw,12px);gap:4px}#admin .tab-button .sym{font-size:21px}html{scroll-padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}}
+
+/* Menu permanente também em computadores; mantém o alinhamento com o painel. */
+@media(min-width:769px){
+  #admin .app{padding-bottom:100px;overflow:visible}
+  #admin .bottom-nav{position:fixed;left:50%;right:auto;bottom:0;transform:translateX(-50%);width:calc(100% - 30px);max-width:980px;z-index:50;padding:6px 19px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px #101d4026;border-top:1px solid #ffffff26;border-radius:18px 18px 0 0}
+  #admin .tab-button{padding:10px 0 12px;min-height:64px;font-size:14px}
+  html{scroll-padding-bottom:100px}
+}
+
+.report-stat{text-align:left;border:1px solid transparent;color:inherit;font:inherit;cursor:pointer}.report-stat[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}.report-stat:focus-visible{outline:3px solid #75b3ff;outline-offset:2px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -40,7 +53,7 @@
 <section class="hidden" id="admin">
 <div class="app"><div class="app-top"><div class="app-icon">▣</div><div class="brand"><strong>MICROPRO</strong><span>Gestão de Agendamentos</span></div><button type="button" class="btn ghost" onclick="logout()" style="padding:9px 11px;font-size:12px">Sair</button></div>
 <div class="app-body">
-<div id="tab-dashboard" class="panel-tab"><div class="app-card"><p class="eyebrow" id="panelMonth">Painel de novembro</p><div class="greeting">Olá, equipe Micropro! 👋</div><div class="seg" aria-label="Período dos indicadores"><button class="active" type="button" data-period="day">Dia</button><button type="button" data-period="week">Semana</button><button type="button" data-period="month">Mês</button></div><div class="period-bar"><button type="button" id="periodPrev" aria-label="Período anterior">‹</button><span class="period-label" id="periodLabel">Hoje</span><button type="button" id="periodNext" aria-label="Próximo período">›</button></div><div class="stats"><div class="stat"><span>Agendados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Confirmados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Compareceram</span><strong class="placeholder">—</strong></div><div class="stat"><span>Reagendados</span><strong class="placeholder">—</strong></div></div><p class="fineprint">Os indicadores exibem apenas agendamentos que sua conta pode consultar. Atualize a tela para ver alterações recentes.</p></div><div class="app-card"><div class="period-bar" style="margin:0 0 15px"><h2 style="margin:0">Agenda do dia</h2><span class="muted small" id="dayLabel"></span></div><div id="dashboardDayList" class="empty">Carregando agenda do dia...</div><button class="btn dark full" type="button" onclick="switchTab('agenda')">＋ Novo agendamento</button></div></div>
+<div id="tab-dashboard" class="panel-tab"><div class="app-card"><p class="eyebrow" id="panelMonth">Painel de novembro</p><div class="greeting">Olá, equipe Micropro! 👋</div><div class="seg" aria-label="Período dos indicadores"><button class="active" type="button" data-period="day">Dia</button><button type="button" data-period="week">Semana</button><button type="button" data-period="month">Mês</button></div><div class="period-bar"><button type="button" id="periodPrev" aria-label="Período anterior">‹</button><span class="period-label" id="periodLabel">Hoje</span><button type="button" id="periodNext" aria-label="Próximo período">›</button></div><div class="stats"><button type="button" class="stat" data-stat="Agendado" aria-expanded="false" aria-controls="indicatorDetails" disabled><span>Agendados</span><strong class="placeholder">—</strong><small>Ver lista ›</small></button><button type="button" class="stat" data-stat="Confirmado" aria-expanded="false" aria-controls="indicatorDetails" disabled><span>Confirmados</span><strong class="placeholder">—</strong><small>Ver lista ›</small></button><button type="button" class="stat" data-stat="Compareceu" aria-expanded="false" aria-controls="indicatorDetails" disabled><span>Compareceram</span><strong class="placeholder">—</strong><small>Ver lista ›</small></button><button type="button" class="stat" data-stat="Reagendado" aria-expanded="false" aria-controls="indicatorDetails" disabled><span>Reagendados</span><strong class="placeholder">—</strong><small>Ver lista ›</small></button></div><p class="fineprint">Toque em um indicador para ver os atendimentos do período. Os dados respeitam as permissões da sua conta e são atualizados automaticamente.</p><section id="indicatorDetails" class="hidden" aria-labelledby="indicatorTitle"><div class="indicator-head"><h2 id="indicatorTitle"></h2><button type="button" class="btn" id="indicatorClose">Fechar</button></div><p id="indicatorPeriod" class="muted small"></p><div id="indicatorList"></div></section></div><div class="app-card"><div class="period-bar" style="margin:0 0 15px"><h2 style="margin:0">Agenda do dia</h2><span class="muted small" id="dayLabel"></span></div><div id="dashboardDayList" class="empty">Carregando agenda do dia...</div><button class="btn dark full" type="button" onclick="switchTab('agenda')">＋ Novo agendamento</button></div></div>
 <div id="tab-agenda" class="panel-tab hidden"><div class="app-card"><h2>Agenda</h2><p class="muted">Consulte o calendário, vagas e atendimentos.</p><label for="agendaDate">Escolher dia</label><input class="date-input" id="agendaDate" type="date"><div class="filter-chips"><span>Agendado • azul</span><span>Confirmado • turquesa</span><span>Compareceu • verde</span><span>Reagendado • amarelo</span></div><p class="muted small">Agenda interna para a equipe autorizada. Corrija o status mesmo após Compareceu; somente registros Reagendados ficam bloqueados. Consulte o histórico no cartão. O agendamento público continua em demonstração.</p>
 <div id="agendaList" class="empty" role="status">Clique em Consultar dia para ver os atendimentos.</div>
 <button type="button" class="btn full" id="agendaRefresh">↻ Consultar dia e vagas</button>
@@ -61,7 +74,12 @@
 <div id="importMapping" class="hidden"><label for="importSheet">Aba da planilha</label><select id="importSheet"></select><label for="importHeader">Linha dos cabeçalhos</label><input id="importHeader" type="number" min="1" max="100" value="1"><button class="btn full" type="button" id="importReadHeaders">Atualizar colunas</button><div id="importColumns"></div><button class="btn primary full" type="button" id="importPreview">Conferir contatos antes de importar</button></div>
 <div id="importReport" role="status" style="white-space:pre-wrap;margin-top:12px"></div><div id="importSample"></div><button class="btn primary full hidden" type="button" id="importConfirm">Confirmar importação dos contatos DP</button><button class="btn full" type="button" id="importClose">Fechar importação</button></div>
 </div></div>
-<div id="tab-relatorios" class="panel-tab hidden"><div class="app-card"><h2>Relatórios</h2><p class="muted">Resultados por Dia, Semana, Mês, funcionário e origem DP/Robô.</p><div class="stats"><div class="stat"><span>Agendados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Comparecimentos</span><strong class="placeholder">—</strong></div></div><div class="notice">Os relatórios reais serão conectados ao Supabase em outra etapa.</div></div></div>
+<div id="tab-relatorios" class="panel-tab hidden"><div class="app-card"><h2>Relatórios</h2><p class="muted">Resultados reais por data do agendamento, conforme as permissões da sua conta.</p>
+<div class="seg" aria-label="Período do relatório"><button type="button" class="active" data-report-period="day">Dia</button><button type="button" data-report-period="week">Semana</button><button type="button" data-report-period="month">Mês</button></div>
+<div class="period-bar"><button type="button" id="reportPrev" aria-label="Período anterior">‹</button><strong id="reportPeriodLabel"></strong><button type="button" id="reportNext" aria-label="Próximo período">›</button></div>
+<label for="reportOrigin">Origem registrada no agendamento</label><select id="reportOrigin"><option value="all">Todas</option><option value="robot">Robô</option><option value="manual">Manual / sem origem registrada</option><option value="other">Outras origens registradas</option></select>
+<p class="muted small" id="reportMessage" role="status">Carregando relatório...</p><div id="reportStats" class="stats"></div><div id="reportDetails" class="hidden" style="margin-top:16px"><div class="actions" style="justify-content:space-between;align-items:center"><h3 id="reportDetailsTitle"></h3><button type="button" class="btn" id="reportClose">Fechar</button></div><div id="reportList"></div></div>
+<p class="muted small">Cada registro conta como um agendamento; um reagendamento pode gerar um novo registro. Taxa de comparecimento = comparecimentos ÷ (comparecimentos + faltas). Contatos DP sem agendamento não entram neste relatório. A origem manual/sem registro não identifica automaticamente um DP. Não há atribuição por funcionária nesta versão.</p></div></div>
 <div id="tab-configuracoes" class="panel-tab hidden"><div class="app-card settings-card"><h2>⚙️ Configurações da administradora</h2><p class="muted">Organize os horários de atendimento, as vagas e a capacidade da equipe.</p><div class="settings-lock" id="settingsNotice" role="status">Faça login como administradora para carregar as configurações reais do Supabase. Alterações só serão enviadas quando clicar em Salvar.</div><div class="settings-grid"><div><label for="cfgVagas">Vagas por horário</label><input id="cfgVagas" type="number" min="1" max="100" value="5"></div><div><label for="cfgEquipe">Limite de funcionários</label><input id="cfgEquipe" type="number" min="1" max="500" value="15"></div><div><label for="cfgIntervalo">Intervalo entre horários</label><select id="cfgIntervalo"><option value="15">15 minutos</option><option value="30" selected>30 minutos</option><option value="60">60 minutos</option></select></div></div><p class="section-label">Funcionamento semanal</p><div id="settingsDays"></div><div class="notice">Mudanças futuras não cancelarão agendamentos existentes automaticamente. Os horários de novos agendamentos precisarão respeitar as configurações salvas e as regras de lotação no servidor.</div><button type="button" id="settingsSave" class="btn primary full" disabled>Salvar configurações</button></div>
 <div class="app-card settings-card" id="teamManagerCard">
 <h2>👥 Gerenciar equipe</h2>
@@ -114,10 +132,10 @@ function drawSettingsDays(){
  });
 }
 drawSettingsDays();
-function switchTab(tab){if(tab==='configuracoes')loadSettings();if(tab==='agenda')loadDayAndSlots();if(tab==='dashboard')refreshDashboard();if(!userId||(tab==='configuracoes'&&role!=='administradora'))return;for(const key of ['dashboard','agenda','clientes','relatorios','configuracoes']){$('tab-'+key).classList.toggle('hidden',key!==tab)}document.querySelectorAll('[data-tab]').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('active',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0)}document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+function switchTab(tab){if(tab==='configuracoes')loadSettings();if(tab==='agenda')loadDayAndSlots();if(tab==='dashboard')refreshDashboard();if(!userId||(tab==='configuracoes'&&role!=='administradora'))return;for(const key of ['dashboard','agenda','clientes','relatorios','configuracoes']){$('tab-'+key).classList.toggle('hidden',key!==tab)}document.querySelectorAll('[data-tab]').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('active',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0);if(tab==='relatorios')loadReports()}document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
 // Filtros de indicadores conectados aos agendamentos visíveis para o perfil da equipe.
 let period='day',offset=0;const fmt=new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric'});function addDays(date,n){const d=new Date(date);d.setDate(d.getDate()+n);return d}function drawPeriod(){const now=new Date(),date=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);$('panelMonth').textContent='Painel de '+new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(now);$('dayLabel').textContent=new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long'}).format(now);let label='';if(period==='day')label=fmt.format(addDays(date,offset));else if(period==='week'){const monday=addDays(date,-((date.getDay()+6)%7)+offset*7);label=fmt.format(monday)+' a '+fmt.format(addDays(monday,6))}else{const m=new Date(date.getFullYear(),date.getMonth()+offset,1);label=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(m)}$('periodLabel').textContent=label;if(userId)refreshDashboard();document.querySelectorAll('[data-period]').forEach(b=>b.classList.toggle('active',b.dataset.period===period))}document.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>{period=b.dataset.period;offset=0;drawPeriod()}));$('periodPrev').addEventListener('click',()=>{offset--;drawPeriod()});$('periodNext').addEventListener('click',()=>{offset++;drawPeriod()});drawPeriod();$('agendaDate').value=new Date().toLocaleDateString('en-CA');
-function toggleDpForm(){$('dpForm').classList.toggle('hidden')};async function logout(){try{await db?.auth.signOut()}finally{userId=null;role=null;settingsLoaded=false;$('settingsSave').disabled=true;$('settingsTabButton').classList.add('hidden');document.querySelector('.bottom-nav').classList.remove('has-settings');$('loginPassword').value='';$('dpForm').reset();$('dpForm').classList.add('hidden');impClear();$('clientSearch').value='';$('clientResults').replaceChildren();$('teamMembers').replaceChildren();$('teamName').value='';$('teamEmail').value='';show('home')}}
+function toggleDpForm(){$('dpForm').classList.toggle('hidden')};async function logout(){try{await db?.auth.signOut()}finally{userId=null;role=null;indicatorClear();clearReports();$('dashboardDayList').textContent='Carregando agenda do dia...';$('agendaList').textContent='Clique em Consultar dia para ver os atendimentos.';settingsLoaded=false;$('settingsSave').disabled=true;$('settingsTabButton').classList.add('hidden');document.querySelector('.bottom-nav').classList.remove('has-settings');$('loginPassword').value='';$('dpForm').reset();$('dpForm').classList.add('hidden');impClear();$('clientSearch').value='';$('clientResults').replaceChildren();$('teamMembers').replaceChildren();$('teamName').value='';$('teamEmail').value='';show('home')}}
 async function authorize(){if(!db)throw Error('Serviço indisponível');const {data,error}=await db.auth.getUser();if(error||!data?.user)throw Error('Sessão inválida');const {data:kind,error:roleError}=await db.rpc('minha_funcao');if(roleError||!['administradora','supervisora','funcionário','funcionario'].includes(kind))throw Error('Sem permissão');if(userId!==data.user.id||kind!=='administradora')impClear();userId=data.user.id;role=kind;$('teamStatus').textContent='Conectada: '+(data.user.email||'usuário')+' • '+kind;$('dpOwner').value=data.user.email||'Conta conectada';$('importButton').classList.toggle('hidden',kind!=='administradora');$('settingsTabButton').classList.toggle('hidden',kind!=='administradora');document.querySelector('.bottom-nav').classList.toggle('has-settings',kind==='administradora');switchTab('dashboard');show('admin')}
 // Configurações reais. O banco autoriza via RLS; esconder a aba não é um mecanismo de segurança.
 let settingsLoaded=false,settingsBusy=false;
@@ -268,7 +286,7 @@ function localBrazilDate(){const p=Object.fromEntries(tzDate.formatToParts(new D
 function isoDate(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`;}
 function bookingPhoneLink(raw){const phone=phoneForContact(raw);return phone?'https://wa.me/'+phone:null;}
 function bookingCard(item){
- const row=document.createElement('article');row.className='contact-card';
+ const row=document.createElement('article');row.className='contact-card';row.dataset.bookingId=String(item.id);row.dataset.bookingSignature=bookingSignature(item);
  const head=document.createElement('div');head.className='contact-head';
  const name=document.createElement('strong');name.textContent=(String(item.horario||'').slice(0,5))+' • '+item.nome_cliente;
  const badge=document.createElement('span');badge.className='badge';badge.textContent=item.status;badge.dataset.status=item.status;
@@ -282,7 +300,7 @@ function bookingCard(item){
    const controls=document.createElement('div');controls.className='manage-controls';
    const statusSel=document.createElement('select');statusSel.setAttribute('aria-label','Novo status de '+item.nome_cliente);
    for(const st of ['Agendado','Confirmado','Conversando','Compareceu','Não compareceu','Sem interesse'])statusSel.add(new Option(st,st));
-   statusSel.value=item.status;
+   statusSel.value=item.status;statusSel.dataset.savedStatus=item.status;
    const saveStatus=document.createElement('button');saveStatus.type='button';saveStatus.className='btn';saveStatus.textContent='Atualizar status';
    const msg=document.createElement('p');msg.className='booking-status';msg.setAttribute('role','status');
    saveStatus.addEventListener('click',async()=>{
@@ -363,13 +381,14 @@ function bookingCard(item){
  return row;
 }
 let bookingBusy=false;
+let bookingLoadVersion=0;
 async function fetchDay(date){
  const {data,error}=await db.from('agendamentos').select('id,nome_cliente,whatsapp,curso,data_agendamento,horario,status').eq('data_agendamento',date).order('horario',{ascending:true}).limit(500);
  if(error)throw error;return data||[];
 }
 async function loadDayAndSlots(){
  if(!userId||!db||bookingBusy)return;
- bookingBusy=true;
+ bookingBusy=true;bookingLoadVersion++;
  const day=$('agendaDate').value||localBrazilDate();$('agendaDate').value=day;
  $('agendaList').textContent='Consultando atendimentos...';
  try{
@@ -412,21 +431,41 @@ $('realBookingForm').addEventListener('submit',async e=>{
  finally{button.disabled=false;}
 });
 let dashboardRequest=0;
+let indicatorStatus=null, indicatorRows=[], indicatorKey=null, indicatorRendered=null;
+const indicatorStatuses=['Agendado','Confirmado','Compareceu','Reagendado'];
+const indicatorLabels=['Agendados','Confirmados','Compareceram','Reagendados'];
+function indicatorPeriodKey(){return JSON.stringify([userId,period,offset,localBrazilDate()]);}
+function indicatorClear(){indicatorStatus=null;indicatorRows=[];indicatorKey=null;indicatorRendered=null;$('indicatorDetails').classList.add('hidden');$('indicatorList').replaceChildren();document.querySelectorAll('[data-stat]').forEach(b=>{b.disabled=true;b.setAttribute('aria-expanded','false');b.querySelector('strong').textContent='—';b.querySelector('strong').classList.add('placeholder');});}
+function indicatorRender(){
+ const panel=$('indicatorDetails');
+ document.querySelectorAll('[data-stat]').forEach(b=>b.setAttribute('aria-expanded',String(b.dataset.stat===indicatorStatus)));
+ if(!indicatorStatus||indicatorKey!==indicatorPeriodKey()){panel.classList.add('hidden');indicatorRendered=null;return;}
+ const rows=indicatorRows.filter(a=>a.status===indicatorStatus);
+ const label=indicatorLabels[indicatorStatuses.indexOf(indicatorStatus)];
+ $('indicatorTitle').textContent=label+' ('+rows.length+')';$('indicatorPeriod').textContent=$('periodLabel').textContent;panel.classList.remove('hidden');
+ const signature=JSON.stringify([indicatorKey,indicatorStatus,rows.map(bookingSignature)]);
+ if(signature===indicatorRendered)return;indicatorRendered=signature;
+ const list=$('indicatorList');list.replaceChildren();
+ if(!rows.length){list.textContent='Nenhum atendimento com este status no período.';return;}
+ for(const a of rows){const card=document.createElement('article');card.className='indicator-details-card';const name=document.createElement('strong');name.className='contact-name';name.textContent=a.nome_cliente;const meta=document.createElement('p');meta.className='contact-meta';meta.textContent=String(a.data_agendamento).split('-').reverse().join('/')+' • '+String(a.horario||'').slice(0,5)+' • '+(a.curso||'')+' • '+(a.whatsapp||'');card.append(name,meta);const phone=phoneForContact(a.whatsapp);if(phone){const actions=document.createElement('div');actions.className='contact-actions';actions.append(makeContactLink('📞 Ligar','tel:+'+phone,'call'),makeContactLink('💬 WhatsApp','https://wa.me/'+phone,'wa'));card.append(actions);}list.append(card);}
+}
+function indicatorApply(rows,key){if(key!==indicatorPeriodKey())return;indicatorRows=rows;indicatorKey=key;document.querySelectorAll('[data-stat]').forEach(b=>{const n=b.querySelector('strong');n.textContent=rows.filter(a=>a.status===b.dataset.stat).length;n.classList.remove('placeholder');b.disabled=false;});indicatorRender();}
+function indicatorFail(){indicatorClear();}
+async function fetchIndicatorRows(start,end){const rows=[];const size=500;for(let from=0;;from+=size){const {data,error}=await db.from('agendamentos').select('id,nome_cliente,whatsapp,curso,data_agendamento,horario,status').gte('data_agendamento',isoDate(start)).lt('data_agendamento',isoDate(end)).in('status',indicatorStatuses).order('data_agendamento',{ascending:true}).order('horario',{ascending:true}).order('id',{ascending:true}).range(from,from+size-1);if(error)throw error;rows.push(...(data||[]));if((data||[]).length<size)return rows;}}
+document.querySelectorAll('[data-stat]').forEach(b=>b.addEventListener('click',()=>{if(indicatorKey!==indicatorPeriodKey())return;indicatorStatus=indicatorStatus===b.dataset.stat?null:b.dataset.stat;indicatorRender();if(indicatorStatus)$('indicatorDetails').scrollIntoView({block:'nearest',behavior:'smooth'});}));
+$('indicatorClose').addEventListener('click',()=>{indicatorStatus=null;indicatorRender();});
 async function refreshDashboard(){
- if(!userId||!db)return;const request=++dashboardRequest;
- const now=new Date(),date=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);
- let start,end;
+ if(!userId||!db)return;const request=++dashboardRequest,key=indicatorPeriodKey();
+ if(key!==indicatorKey){const previous=indicatorStatus;indicatorClear();indicatorStatus=previous;}
+ const now=new Date(),date=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);let start,end;
  if(period==='day'){start=addDays(date,offset);end=addDays(start,1)}
  else if(period==='week'){start=addDays(date,-((date.getDay()+6)%7)+offset*7);end=addDays(start,7)}
  else{start=new Date(date.getFullYear(),date.getMonth()+offset,1);end=new Date(start.getFullYear(),start.getMonth()+1,1)}
- const stats=document.querySelectorAll('#tab-dashboard .stat strong');
  try{
-  const {data,error}=await db.from('agendamentos').select('status,data_agendamento').gte('data_agendamento',isoDate(start)).lt('data_agendamento',isoDate(end)).limit(1000);
-  if(error)throw error;if(request!==dashboardRequest)return;
-  if((data||[]).length===1000)throw Error('Período com muitos agendamentos; contagem não exibida para evitar número incompleto');
-  const statuses=['Agendado','Confirmado','Compareceu','Reagendado'];statuses.forEach((status,i)=>{stats[i].textContent=(data||[]).filter(a=>a.status===status).length;stats[i].classList.remove('placeholder');});
-  if(true){const today=localBrazilDate();const todays=await fetchDay(today);const target=$('dashboardDayList');target.replaceChildren();if(!todays.length)target.textContent='Nenhum atendimento registrado para hoje.';else for(const row of todays)target.append(bookingCard(row));}
- }catch(error){if(request!==dashboardRequest)return;stats.forEach(x=>{x.textContent='—';x.classList.add('placeholder')});$('dashboardDayList').textContent='Falha ao consultar os agendamentos: '+(error.message||'erro de conexão');}
+  const [rows,todays]=await Promise.all([fetchIndicatorRows(start,end),fetchDay(localBrazilDate())]);
+  if(request!==dashboardRequest||key!==indicatorPeriodKey()||!userId)return;
+  indicatorApply(rows,key);const target=$('dashboardDayList');if(!autoListProtected(target))autoUpdateList(target,todays);
+ }catch(error){if(request!==dashboardRequest||key!==indicatorPeriodKey())return;indicatorFail();const target=$('dashboardDayList');if(!autoListProtected(target))target.textContent='Falha ao consultar os agendamentos: '+(error.message||'erro de conexão');}
 }
 // Administração da equipe usa APENAS função protegida no servidor.
 // Nunca colocar uma chave service_role no HTML ou usar auth.signUp para criar contas a partir da sessão administrativa.
@@ -552,6 +591,83 @@ function impToggleBusy(on){impBusy=on;for(const id of ['importFile','importSheet
 async function impSend(rows,preview){const totals={novos:0,inseridos:0,existentes:0,invalidos:0,conflitos:0};for(let i=0;i<rows.length;i+=100){if(role!=='administradora'||!userId)throw Error('Sessão encerrada. Entre novamente.');const {data,error}=await db.rpc('importar_clientes_dp_lote',{p_registros:rows.slice(i,i+100),p_simular:preview});if(error)throw Error('O servidor interrompeu a operação. '+(error.code?'Código: '+error.code+'. ':'')+(preview?'Confira a instalação SQL e o acesso da administradora.':'Alguns lotes podem ter sido gravados. Faça nova prévia antes de tentar novamente.'));if(!data||typeof data!=='object')throw Error('Resposta inesperada do servidor.');for(const k of Object.keys(totals))totals[k]+=Number(data[k]||0);$('importReport').textContent=(preview?'Conferindo ':'Importando ')+Math.min(i+100,rows.length)+' de '+rows.length+' contatos...';}return totals;}
 $('importPreview').onclick=async()=>{if(impBusy||role!=='administradora')return;impResetPreview();try{const h=Number($('importHeader').value);if(!Number.isInteger(h)||h<1||h>Math.min(100,impRows.length))throw Error('Cabeçalho inválido.');if(impRows.length-h>5000)throw Error('Divida a aba em até 5.000 contatos.');const cols=Object.fromEntries(impFields.map(([k])=>[k,$('imp_'+k).value]));if(cols.nome===''||cols.whatsapp===''||cols.nome===cols.whatsapp)throw Error('Selecione colunas diferentes para nome e telefone.');const rows=[],seen=new Set();let invalid=0,dups=0;const bad=[];for(let i=h;i<impRows.length;i++){const row=impRows[i];if(!row.some(v=>String(v??'').trim()))continue;const val=k=>cols[k]===''?'':String(row[Number(cols[k])]??'').trim();const nome=val('nome'),whatsapp=impPhone(val('whatsapp')),curso=val('curso'),observacoes=val('observacoes');if(!nome||nome.length>120||!whatsapp||curso.length>150||observacoes.length>3000){invalid++;if(bad.length<15)bad.push(i+1);continue;}const key=nome.toLowerCase().replace(/\s+/g,' ')+'|'+whatsapp;if(seen.has(key)){dups++;continue;}seen.add(key);rows.push({nome,whatsapp,curso,observacoes,aba_origem:'Importação DP — '+$('importSheet').value});}if(!rows.length)throw Error('Nenhum contato válido. Confira as colunas.');impToggleBusy(true);const gen=impGeneration;const totals=await impSend(rows,true);if(gen!==impGeneration||role!=='administradora')return;impReady=rows;$('importReport').textContent=`Prévia — ${rows.length} contatos válidos; ${totals.novos} novos previstos; ${totals.existentes} já existentes; ${dups} repetidos no arquivo; ${invalid+totals.invalidos} para revisar.`+(bad.length?' Primeiras linhas a revisar: '+bad.join(', ')+'.':'')+'\nOs contatos existentes e suas observações serão preservados.';const sample=$('importSample');const title=document.createElement('p');title.textContent='Amostra (até 10 contatos):';sample.append(title);for(const r of rows.slice(0,10)){const p=document.createElement('p');p.className='contact-meta';p.textContent=r.nome+' • '+r.whatsapp+(r.curso?' • '+r.curso:'');sample.append(p);}if(totals.novos>0)$('importConfirm').classList.remove('hidden');}catch(e){impReportError(e);}finally{impToggleBusy(false);}};
 $('importConfirm').onclick=async()=>{if(impBusy||role!=='administradora'||!impReady.length)return;if(!confirm('Importar os novos contatos DP desta prévia? Os existentes não serão alterados.'))return;impToggleBusy(true);const rows=impReady.slice();$('importConfirm').classList.add('hidden');try{const t=await impSend(rows,false);$('importReport').textContent=`Importação concluída: ${t.inseridos} novos clientes, ${t.existentes} já existentes, ${t.invalidos} inválidos no servidor, ${t.conflitos} conflitos não inseridos. Nenhum agendamento foi criado.`;}catch(e){impReportError(e);}finally{impReady=[];impToggleBusy(false);}};
+
+
+
+// Relatórios: leitura paginada, sob as mesmas políticas RLS da agenda.
+let reportPeriod='day',reportOffset=0,reportRequest=0,reportRows=[],reportSelection=null,reportLoadedKey=null;
+const reportMetrics=[['total','Total de agendamentos'],['Agendado','Agendados'],['Confirmado','Confirmados'],['Conversando','Conversando'],['Compareceu','Compareceram'],['Não compareceu','Não compareceram'],['Reagendado','Reagendados'],['Sem interesse','Sem interesse']];
+function reportBounds(){const [y,m,d]=localBrazilDate().split('-').map(Number),date=new Date(y,m-1,d,12);let start,end;if(reportPeriod==='day'){start=addDays(date,reportOffset);end=addDays(start,1);}else if(reportPeriod==='week'){start=addDays(date,-((date.getDay()+6)%7)+reportOffset*7);end=addDays(start,7);}else{start=new Date(y,m-1+reportOffset,1,12);end=new Date(y,m+reportOffset,1,12);}return {start,end};}
+function reportKey(){const {start,end}=reportBounds();return JSON.stringify([userId,isoDate(start),isoDate(end),$('reportOrigin').value]);}
+function reportOriginMatch(row,origin){const source=String(row.origem_integracao||'').trim();return origin==='all'||(origin==='robot'&&source==='google_robo')||(origin==='manual'&&!source)||(origin==='other'&&!!source&&source!=='google_robo');}
+function reportCounts(rows){const counts=Object.fromEntries(reportMetrics.map(([key])=>[key,0]));counts.total=rows.length;for(const row of rows)if(row.status!=='total'&&Object.prototype.hasOwnProperty.call(counts,row.status))counts[row.status]++;const resolved=counts.Compareceu+counts['Não compareceu'];return {counts,rate:resolved?100*counts.Compareceu/resolved:null};}
+function reportDrawPeriod(){const {start,end}=reportBounds();$('reportPeriodLabel').textContent=reportPeriod==='day'?fmt.format(start):reportPeriod==='week'?fmt.format(start)+' a '+fmt.format(addDays(end,-1)):new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(start);document.querySelectorAll('[data-report-period]').forEach(b=>{const on=b.dataset.reportPeriod===reportPeriod;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});}
+function clearReports(){reportRequest++;reportRows=[];reportSelection=null;reportLoadedKey=null;$('reportStats').replaceChildren();$('reportList').replaceChildren();$('reportDetails').classList.add('hidden');$('reportMessage').textContent='Carregando relatório...';}
+function renderReportDetails(){const box=$('reportDetails'),list=$('reportList');box.classList.toggle('hidden',!reportSelection);list.replaceChildren();if(!reportSelection)return;const label=reportMetrics.find(([k])=>k===reportSelection)?.[1]||'';const rows=reportRows.filter(a=>reportSelection==='total'||a.status===reportSelection);$('reportDetailsTitle').textContent=label+' ('+rows.length+')';if(!rows.length){list.textContent='Nenhum agendamento neste grupo.';return;}for(const a of rows){const card=document.createElement('article');card.className='indicator-details-card';const name=document.createElement('strong');name.className='contact-name';name.textContent=a.nome_cliente;const meta=document.createElement('p');meta.className='contact-meta';meta.textContent=String(a.data_agendamento).split('-').reverse().join('/')+' • '+String(a.horario||'').slice(0,5)+' • '+(a.curso||'')+' • '+a.status;card.append(name,meta);const phone=phoneForContact(a.whatsapp);if(phone){const actions=document.createElement('div');actions.className='contact-actions';actions.append(makeContactLink('📞 Ligar','tel:+'+phone,'call'),makeContactLink('💬 WhatsApp','https://wa.me/'+phone,'wa'));card.append(actions);}list.append(card);}}
+function renderReports(){const {counts,rate}=reportCounts(reportRows),target=$('reportStats');target.replaceChildren();for(const [key,label] of reportMetrics){const b=document.createElement('button');b.type='button';b.className='stat report-stat';b.setAttribute('aria-pressed',String(reportSelection===key));const span=document.createElement('span');span.textContent=label;const n=document.createElement('strong');n.textContent=counts[key];b.append(span,n);b.addEventListener('click',()=>{reportSelection=reportSelection===key?null:key;renderReports();if(reportSelection)$('reportDetails').scrollIntoView({block:'nearest',behavior:'smooth'});});target.append(b);}const r=document.createElement('div');r.className='stat';const label=document.createElement('span');label.textContent='Taxa de comparecimento';const n=document.createElement('strong');n.textContent=rate===null?'—':rate.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';r.append(label,n);target.append(r);renderReportDetails();}
+async function loadReports({quiet=false}={}){if(!userId||!db)return;reportDrawPeriod();const key=reportKey(),owner=userId,request=++reportRequest,{start,end}=reportBounds(),origin=$('reportOrigin').value;const same=reportLoadedKey===key;if(!same){reportSelection=null;reportRows=[];reportLoadedKey=null;$('reportStats').replaceChildren();renderReportDetails();}if(!quiet||!same)$('reportMessage').textContent='Consultando dados do Supabase...';const rows=[];try{for(let from=0;;from+=500){const {data,error}=await db.from('agendamentos').select('id,nome_cliente,whatsapp,curso,data_agendamento,horario,status,origem_integracao').gte('data_agendamento',isoDate(start)).lt('data_agendamento',isoDate(end)).order('data_agendamento',{ascending:true}).order('horario',{ascending:true}).order('id',{ascending:true}).range(from,from+499);if(error)throw error;if(request!==reportRequest||owner!==userId||key!==reportKey())return;rows.push(...(data||[]));if((data||[]).length<500)break;}if(request!==reportRequest||owner!==userId||key!==reportKey())return;const filtered=rows.filter(a=>reportOriginMatch(a,origin));const changed=!same||JSON.stringify(filtered)!==JSON.stringify(reportRows);reportRows=filtered;reportLoadedKey=key;if(changed)renderReports();$('reportMessage').textContent='Atualização automática • última consulta às '+autoTime()+' • '+filtered.length+' registros.';}catch(e){if(request!==reportRequest||owner!==userId||key!==reportKey())return;$('reportMessage').textContent=same?'Falha na atualização. Exibindo a última consulta; nova tentativa em 30 segundos.':'Não foi possível consultar os relatórios. Nova tentativa em 30 segundos.';}}
+document.querySelectorAll('[data-report-period]').forEach(b=>b.addEventListener('click',()=>{reportPeriod=b.dataset.reportPeriod;reportOffset=0;loadReports();}));$('reportPrev').onclick=()=>{reportOffset--;loadReports();};$('reportNext').onclick=()=>{reportOffset++;loadReports();};$('reportOrigin').onchange=()=>loadReports();$('reportClose').onclick=()=>{reportSelection=null;renderReports();};
+
+// Atualização discreta: somente consultas autorizadas; nunca grava dados.
+const AUTO_REFRESH_MS = 30000;
+let autoBusy=false;
+function bookingSignature(a){return JSON.stringify([String(a.id),a.nome_cliente,a.whatsapp,a.curso,a.data_agendamento,a.horario,a.status]);}
+function autoVisibleTab(tab){return Boolean(userId&&db&&!document.hidden&&!$('admin').classList.contains('hidden')&&!$('tab-'+tab).classList.contains('hidden'));}
+function autoListProtected(target){
+ if(!target)return true;
+ if(target.contains(document.activeElement))return true;
+ if(Array.from(target.querySelectorAll('textarea')).some(el=>el.value.length>0))return true;
+ if(Array.from(target.querySelectorAll('select[data-saved-status]')).some(el=>el.value!==el.dataset.savedStatus))return true;
+ if(target.querySelector('.booking-rebook:not(.hidden), .contact-card > .booking-status:not(.hidden), button:disabled'))return true;
+ // Observações anteriores abertas: conservar o histórico e a posição de leitura.
+ if(target.querySelector('.booking-manage > div.booking-status:not(.hidden)'))return true;
+ return false;
+}
+function autoUpdateList(target,rows){
+ const current=Array.from(target.children);
+ const same=rows.length===current.length&&rows.every((a,i)=>current[i].dataset.bookingSignature===bookingSignature(a));
+ if(same && (rows.length||target.textContent==='Nenhum agendamento registrado neste dia.'||target.textContent==='Nenhum atendimento registrado para hoje.'))return;
+ if(!rows.length){target.textContent=target.id==='agendaList'?'Nenhum agendamento registrado neste dia.':'Nenhum atendimento registrado para hoje.';return;}
+ const existing=new Map(current.map(el=>[el.dataset.bookingId,el]));
+ const nodes=rows.map(a=>{const el=existing.get(String(a.id));return el&&el.dataset.bookingSignature===bookingSignature(a)?el:bookingCard(a);});
+ target.replaceChildren(...nodes);
+}
+function autoStamp(tab,message){const el=$('autoRefresh'+tab);if(el)el.textContent=message;}
+function autoTime(){return new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'America/Sao_Paulo'});}
+async function autoRefreshMicropro(){
+ if(autoBusy||!userId||!db||document.hidden||bookingBusy)return;
+ const tab=autoVisibleTab('agenda')?'agenda':autoVisibleTab('dashboard')?'dashboard':null;
+ if(!tab){if(autoVisibleTab('relatorios')){autoBusy=true;try{await loadReports({quiet:true});}finally{autoBusy=false;}}return;}
+ const target=$(tab==='agenda'?'agendaList':'dashboardDayList');
+ const safe=()=>autoVisibleTab(tab)&&!bookingBusy&&!autoListProtected(target)&&!(tab==='agenda'&&!$('realBookingForm').classList.contains('hidden'));
+ if(!safe()){autoStamp(tab,'Atualização automática pausada durante a edição ou consulta.');return;}
+ autoBusy=true;
+ const owner=userId,day=$('agendaDate').value||localBrazilDate(),version=bookingLoadVersion,request=dashboardRequest,chosenPeriod=period,chosenOffset=offset;
+ const still=()=>userId===owner&&safe()&&version===bookingLoadVersion&&request===dashboardRequest&&day===($('agendaDate').value||localBrazilDate())&&chosenPeriod===period&&chosenOffset===offset;
+ try{
+  if(tab==='agenda'){
+   const rows=await fetchDay(day);
+   if(!still())return;
+   autoUpdateList(target,rows);
+  }else{
+   const now=new Date(),date=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);let start,end;
+   if(chosenPeriod==='day'){start=addDays(date,chosenOffset);end=addDays(start,1);}
+   else if(chosenPeriod==='week'){start=addDays(date,-((date.getDay()+6)%7)+chosenOffset*7);end=addDays(start,7);}
+   else{start=new Date(date.getFullYear(),date.getMonth()+chosenOffset,1);end=new Date(start.getFullYear(),start.getMonth()+1,1);}
+   const key=indicatorPeriodKey();
+   const [result,rows]=await Promise.all([fetchIndicatorRows(start,end),fetchDay(localBrazilDate())]);
+   if(!still()||key!==indicatorPeriodKey())return;
+   indicatorApply(result,key);
+   autoUpdateList(target,rows);
+  }
+  autoStamp(tab,'Atualização automática • última consulta às '+autoTime());
+ }catch(e){if(userId===owner&&autoVisibleTab(tab))autoStamp(tab,'Sem atualização agora. Tentaremos novamente em 30 segundos.');}
+ finally{autoBusy=false;}
+}
+for(const [tab,anchor] of [['agenda','agendaList'],['dashboard','dashboardDayList']]){const p=document.createElement('p');p.id='autoRefresh'+tab;p.className='muted small';p.textContent='Atualização automática a cada 30 segundos.';$(anchor).before(p);}
+setInterval(autoRefreshMicropro,AUTO_REFRESH_MS);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)autoRefreshMicropro();});
+window.addEventListener('focus',autoRefreshMicropro);
 
 restoreSavedSession();
 </script>
