@@ -25,6 +25,8 @@
 .badge[data-status="Não compareceu"]{background:#fee2e2;color:#b91c1c}
 .badge[data-status="Conversando"]{background:#f3e8ff;color:#7e22ce}
 .badge[data-status="Sem interesse"]{background:#e5e7eb;color:#4b5563}
+
+.settings-grid > div, .day-row > div {min-width:0;} input[type="time"]{min-width:0;max-width:100%;box-sizing:border-box;}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -56,14 +58,30 @@
 </form></div></div>
 <div id="tab-clientes" class="panel-tab hidden"><div class="app-card"><h2>Clientes</h2><p class="muted">Contatos Robô e DP. O cadastro individual DP pode ser salvo no Supabase, conforme as permissões do login.</p><label for="clientSearch">Buscar por nome ou WhatsApp</label><input id="clientSearch" type="search" placeholder="Digite nome ou telefone" autocomplete="off" maxlength="70"><button type="button" class="btn primary full" id="clientSearchButton">🔎 Buscar clientes</button><p class="muted small">Resultados disponíveis conforme o acesso da sua conta. Não mostramos dados sem autorização.</p><div id="clientResults" aria-live="polite"></div><div class="filter-chips"><span>Todos</span><span>DPs</span><span>Robôs</span></div><div class="actions"><button type="button" class="btn primary" onclick="toggleDpForm()">＋ Cadastrar novo contato</button><button type="button" id="importButton" class="btn hidden" onclick="showImportNotice()">⇧ Importar planilha</button></div><form id="dpForm" class="hidden"><hr class="form-divider"><p class="section-label">Novo contato DP</p><label for="dpName">Nome completo *</label><input id="dpName" autocomplete="name" maxlength="120" required><label for="dpPhone">WhatsApp com DDD *</label><input id="dpPhone" inputmode="tel" maxlength="20" required placeholder="(43) 99999-9999"><label for="dpCourse">Curso de interesse (opcional)</label><input id="dpCourse" maxlength="150"><label for="dpNotes">Observações</label><textarea id="dpNotes" maxlength="3000"></textarea><label for="dpOwner">Responsável (identificado pelo login)</label><input id="dpOwner" disabled><div class="notice note-blue">Será cadastrado como <strong>DP</strong>. A identificação do responsável é validada pela regra do banco de dados. A prevenção definitiva de duplicidades ainda está em preparação.</div><button type="submit" class="btn primary full" id="dpSave">Salvar contato DP</button><p role="status" id="dpMessage"></p></form><div class="notice">A importação de planilhas ainda está em preparação. Os botões Ligar e WhatsApp aparecem nos resultados autorizados; os atendimentos da agenda serão conectados em uma etapa posterior.</div></div></div>
 <div id="tab-relatorios" class="panel-tab hidden"><div class="app-card"><h2>Relatórios</h2><p class="muted">Resultados por Dia, Semana, Mês, funcionário e origem DP/Robô.</p><div class="stats"><div class="stat"><span>Agendados</span><strong class="placeholder">—</strong></div><div class="stat"><span>Comparecimentos</span><strong class="placeholder">—</strong></div></div><div class="notice">Os relatórios reais serão conectados ao Supabase em outra etapa.</div></div></div>
-<div id="tab-configuracoes" class="panel-tab hidden"><div class="app-card settings-card"><h2>⚙️ Configurações da administradora</h2><p class="muted">Organize os horários de atendimento, as vagas e a capacidade da equipe.</p><div class="settings-lock" id="settingsNotice" role="status">Faça login como administradora para carregar as configurações reais do Supabase. Alterações só serão enviadas quando clicar em Salvar.</div><div class="settings-grid"><div><label for="cfgVagas">Vagas por horário</label><input id="cfgVagas" type="number" min="1" max="100" value="5"></div><div><label for="cfgEquipe">Limite de funcionários</label><input id="cfgEquipe" type="number" min="1" max="500" value="15"></div><div><label for="cfgIntervalo">Intervalo entre horários</label><select id="cfgIntervalo"><option value="15">15 minutos</option><option value="30" selected>30 minutos</option><option value="60">60 minutos</option></select></div></div><p class="section-label">Funcionamento semanal</p><div id="settingsDays"></div><div class="notice">Mudanças futuras não cancelarão agendamentos existentes automaticamente. Os horários de novos agendamentos precisarão respeitar as configurações salvas e as regras de lotação no servidor.</div><button type="button" id="settingsSave" class="btn primary full" disabled>Salvar configurações</button></div></div>
-</div><p class="teamline" id="teamStatus"></p><nav class="bottom-nav" aria-label="Navegação da equipe"><button type="button" data-tab="dashboard" class="tab-button active"><span class="sym">⌂</span>Início</button><button type="button" data-tab="agenda" class="tab-button"><span class="sym">▦</span>Agenda</button><button type="button" data-tab="clientes" class="tab-button"><span class="sym">♧</span>Clientes</button><button type="button" data-tab="relatorios" class="tab-button"><span class="sym">▥</span>Relatórios</button><button type="button" data-tab="configuracoes" id="settingsTabButton" class="tab-button hidden"><span class="sym">⚙</span>Ajustes</button></nav></div>
+<div id="tab-configuracoes" class="panel-tab hidden"><div class="app-card settings-card"><h2>⚙️ Configurações da administradora</h2><p class="muted">Organize os horários de atendimento, as vagas e a capacidade da equipe.</p><div class="settings-lock" id="settingsNotice" role="status">Faça login como administradora para carregar as configurações reais do Supabase. Alterações só serão enviadas quando clicar em Salvar.</div><div class="settings-grid"><div><label for="cfgVagas">Vagas por horário</label><input id="cfgVagas" type="number" min="1" max="100" value="5"></div><div><label for="cfgEquipe">Limite de funcionários</label><input id="cfgEquipe" type="number" min="1" max="500" value="15"></div><div><label for="cfgIntervalo">Intervalo entre horários</label><select id="cfgIntervalo"><option value="15">15 minutos</option><option value="30" selected>30 minutos</option><option value="60">60 minutos</option></select></div></div><p class="section-label">Funcionamento semanal</p><div id="settingsDays"></div><div class="notice">Mudanças futuras não cancelarão agendamentos existentes automaticamente. Os horários de novos agendamentos precisarão respeitar as configurações salvas e as regras de lotação no servidor.</div><button type="button" id="settingsSave" class="btn primary full" disabled>Salvar configurações</button></div>
+<div class="app-card settings-card" id="teamManagerCard">
+<h2>👥 Gerenciar equipe</h2>
+<p class="muted">Área exclusiva da administradora. Convide funcionárias por e-mail, defina cargos e controle o acesso, sem compartilhar senhas.</p>
+<div class="notice note-blue" id="teamManagerNotice" role="status">Consulte a equipe ou envie um convite. O acesso é validado no servidor.</div>
+<div class="settings-grid">
+<div><label for="teamName">Nome completo *</label><input id="teamName" maxlength="120" autocomplete="off" placeholder="Nome da funcionária"></div>
+<div><label for="teamEmail">E-mail individual *</label><input id="teamEmail" type="email" maxlength="254" autocomplete="off" placeholder="nome@empresa.com"></div>
+<div><label for="teamRole">Cargo *</label><select id="teamRole"><option value="funcionário">Funcionária</option><option value="supervisora">Supervisora</option><option value="administradora">Administradora</option></select></div>
+</div>
+<p class="muted small">A funcionária receberá um convite para configurar o acesso. A administradora não vê nem define a senha dela.</p>
+<button type="button" id="teamInvite" class="btn primary full">✉️ Enviar convite</button>
+<hr class="form-divider"><p class="section-label">Pessoas cadastradas</p>
+<button type="button" id="teamReload" class="btn full">↻ Atualizar equipe</button>
+<div id="teamMembers" aria-live="polite" class="empty">Clique em Atualizar equipe para consultar os cadastros.</div>
+</div></div>
+</div><p class="teamline" id="teamStatus"></p><div class="actions" style="justify-content:center;margin:8px 0 12px"><button type="button" class="btn" id="ownPasswordButton">Definir / alterar minha senha</button></div><nav class="bottom-nav" aria-label="Navegação da equipe"><button type="button" data-tab="dashboard" class="tab-button active"><span class="sym">⌂</span>Início</button><button type="button" data-tab="agenda" class="tab-button"><span class="sym">▦</span>Agenda</button><button type="button" data-tab="clientes" class="tab-button"><span class="sym">♧</span>Clientes</button><button type="button" data-tab="relatorios" class="tab-button"><span class="sym">▥</span>Relatórios</button><button type="button" data-tab="configuracoes" id="settingsTabButton" class="tab-button hidden"><span class="sym">⚙</span>Ajustes</button></nav></div>
 </section>
-</main><footer class="foot">Agenda • Sistema de agendamentos</footer>
+<section class="paper hidden" id="passwordSetup"><h2>🔐 Defina sua senha</h2><p class="muted">Crie sua senha individual de acesso à Agenda Micropro. Não compartilhe sua senha com ninguém.</p><form id="ownPasswordForm"><label for="newOwnPassword">Nova senha (mínimo 8 caracteres)</label><input id="newOwnPassword" type="password" autocomplete="new-password" minlength="8" required><label for="confirmOwnPassword">Confirme a senha</label><input id="confirmOwnPassword" type="password" autocomplete="new-password" minlength="8" required><button type="submit" class="btn primary full">Salvar minha senha</button></form><p id="ownPasswordMessage" role="status"></p><button type="button" class="btn full" id="ownPasswordBack">Voltar</button></section></main><footer class="foot">Agenda • Sistema de agendamentos</footer>
 <script>
 'use strict';
 const SUPABASE_URL='https://pyaqqeuawfamnapfdrjj.supabase.co/';
 const SUPABASE_PUBLIC_KEY='sb_publishable_P4Wr82hpsEGHdzUyXJqBnA_Y_szlPnD';
+const initialAuthType=new URLSearchParams(location.hash.slice(1)).get('type');
 const db=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id);const days=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
 const schedule=[{on:false,start:'09:00',end:'15:00'},...Array.from({length:5},()=>({on:true,start:'09:00',end:'18:00'})),{on:true,start:'09:00',end:'15:00'}];let selectedTime='',userId=null,role=null;
@@ -95,7 +113,7 @@ drawSettingsDays();
 function switchTab(tab){if(tab==='configuracoes')loadSettings();if(tab==='agenda')loadDayAndSlots();if(tab==='dashboard')refreshDashboard();if(!userId||(tab==='configuracoes'&&role!=='administradora'))return;for(const key of ['dashboard','agenda','clientes','relatorios','configuracoes']){$('tab-'+key).classList.toggle('hidden',key!==tab)}document.querySelectorAll('[data-tab]').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('active',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0)}document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
 // Filtros de indicadores conectados aos agendamentos visíveis para o perfil da equipe.
 let period='day',offset=0;const fmt=new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric'});function addDays(date,n){const d=new Date(date);d.setDate(d.getDate()+n);return d}function drawPeriod(){const now=new Date(),date=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);$('panelMonth').textContent='Painel de '+new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(now);$('dayLabel').textContent=new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long'}).format(now);let label='';if(period==='day')label=fmt.format(addDays(date,offset));else if(period==='week'){const monday=addDays(date,-((date.getDay()+6)%7)+offset*7);label=fmt.format(monday)+' a '+fmt.format(addDays(monday,6))}else{const m=new Date(date.getFullYear(),date.getMonth()+offset,1);label=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(m)}$('periodLabel').textContent=label;if(userId)refreshDashboard();document.querySelectorAll('[data-period]').forEach(b=>b.classList.toggle('active',b.dataset.period===period))}document.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>{period=b.dataset.period;offset=0;drawPeriod()}));$('periodPrev').addEventListener('click',()=>{offset--;drawPeriod()});$('periodNext').addEventListener('click',()=>{offset++;drawPeriod()});drawPeriod();$('agendaDate').value=new Date().toLocaleDateString('en-CA');
-function toggleDpForm(){$('dpForm').classList.toggle('hidden')};function showImportNotice(){alert('Importação em lote será implementada depois, com prévia, análise de duplicidades e autorização no servidor. Não envie planilhas por esta tela.')}async function logout(){try{await db?.auth.signOut()}finally{userId=null;role=null;settingsLoaded=false;$('settingsSave').disabled=true;$('settingsTabButton').classList.add('hidden');document.querySelector('.bottom-nav').classList.remove('has-settings');$('loginPassword').value='';$('dpForm').reset();$('dpForm').classList.add('hidden');$('clientSearch').value='';$('clientResults').replaceChildren();show('home')}}
+function toggleDpForm(){$('dpForm').classList.toggle('hidden')};function showImportNotice(){alert('Importação em lote será implementada depois, com prévia, análise de duplicidades e autorização no servidor. Não envie planilhas por esta tela.')}async function logout(){try{await db?.auth.signOut()}finally{userId=null;role=null;settingsLoaded=false;$('settingsSave').disabled=true;$('settingsTabButton').classList.add('hidden');document.querySelector('.bottom-nav').classList.remove('has-settings');$('loginPassword').value='';$('dpForm').reset();$('dpForm').classList.add('hidden');$('clientSearch').value='';$('clientResults').replaceChildren();$('teamMembers').replaceChildren();$('teamName').value='';$('teamEmail').value='';show('home')}}
 async function authorize(){if(!db)throw Error('Serviço indisponível');const {data,error}=await db.auth.getUser();if(error||!data?.user)throw Error('Sessão inválida');const {data:kind,error:roleError}=await db.rpc('minha_funcao');if(roleError||!['administradora','supervisora','funcionário','funcionario'].includes(kind))throw Error('Sem permissão');userId=data.user.id;role=kind;$('teamStatus').textContent='Conectada: '+(data.user.email||'usuário')+' • '+kind;$('dpOwner').value=data.user.email||'Conta conectada';$('importButton').classList.toggle('hidden',kind!=='administradora');$('settingsTabButton').classList.toggle('hidden',kind!=='administradora');document.querySelector('.bottom-nav').classList.toggle('has-settings',kind==='administradora');switchTab('dashboard');show('admin')}
 // Configurações reais. O banco autoriza via RLS; esconder a aba não é um mecanismo de segurança.
 let settingsLoaded=false,settingsBusy=false;
@@ -394,6 +412,82 @@ async function refreshDashboard(){
   if(true){const today=localBrazilDate();const todays=await fetchDay(today);const target=$('dashboardDayList');target.replaceChildren();if(!todays.length)target.textContent='Nenhum atendimento registrado para hoje.';else for(const row of todays)target.append(bookingCard(row));}
  }catch(error){if(request!==dashboardRequest)return;stats.forEach(x=>{x.textContent='—';x.classList.add('placeholder')});$('dashboardDayList').textContent='Falha ao consultar os agendamentos: '+(error.message||'erro de conexão');}
 }
+// Administração da equipe usa APENAS função protegida no servidor.
+// Nunca colocar uma chave service_role no HTML ou usar auth.signUp para criar contas a partir da sessão administrativa.
+let teamBusy=false;
+function teamMsg(txt){$('teamManagerNotice').textContent=txt;}
+function teamRoleLabel(r){return ({'funcionário':'Funcionária','funcionario':'Funcionária','supervisora':'Supervisora','administradora':'Administradora','desativada':'Desativada'})[r]||r;}
+async function teamRequest(action,payload={}){
+ await verifyAdministrator();
+ const {data:{session},error:sessionError}=await db.auth.getSession();
+ if(sessionError||!session?.access_token)throw new Error('Sessão expirada. Entre novamente.');
+ const response=await fetch(SUPABASE_URL.replace(/\/$/,'')+'/functions/v1/gerenciar-equipe',{
+  method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token,'apikey':SUPABASE_PUBLIC_KEY},
+  body:JSON.stringify({action,...payload})
+ });
+ let result={};try{result=await response.json()}catch{}
+ if(!response.ok||!result.ok)throw new Error(result.message||'Serviço não habilitado. Ative primeiro a função Gerenciar equipe no Supabase.');
+ return result;
+}
+function teamElement(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;}
+async function loadTeamMembers(){
+ if(teamBusy||role!=='administradora')return;teamBusy=true;$('teamReload').disabled=true;$('teamInvite').disabled=true;
+ teamMsg('Consultando a equipe...');
+ try{
+  const requestUser=userId;const response=await teamRequest('list');if(userId!==requestUser||role!=='administradora')return;const container=$('teamMembers');container.replaceChildren();
+  const members=response.members||[];
+  if(!members.length){container.textContent='Nenhuma pessoa encontrada.';}
+  for(const member of members){
+   const card=teamElement('div','contact-card');
+   const title=teamElement('strong','',member.name||'Sem nome');
+   const email=teamElement('div','muted small',member.email||'');
+   const status=teamElement('div','muted small',teamRoleLabel(member.role)+(member.disabled?' • Acesso desativado':''));
+   card.append(title,email,status);
+   const controls=teamElement('div','manage-controls');controls.style.marginTop='10px';
+   const select=document.createElement('select');select.setAttribute('aria-label','Cargo de '+(member.name||'funcionária'));
+   for(const [value,label] of [['funcionário','Funcionária'],['supervisora','Supervisora'],['administradora','Administradora']]){
+    const opt=document.createElement('option');opt.value=value;opt.textContent=label;select.append(opt);
+   }select.value=member.role==='funcionario'?'funcionário':member.role;
+   select.disabled=member.disabled||member.id===userId;
+   const save=teamElement('button','btn','Salvar cargo');save.type='button';save.disabled=member.disabled||member.id===userId;
+   save.addEventListener('click',async()=>{
+    if(!confirm('Alterar o cargo de '+member.name+' para '+teamRoleLabel(select.value)+'?'))return;
+    await manageMember('role',{user_id:member.id,role:select.value});
+   });controls.append(select,save);card.append(controls);
+   const toggle=teamElement('button','btn',member.disabled?'Reativar acesso':'Desativar acesso');toggle.type='button';
+   toggle.style.marginTop='8px';toggle.disabled=member.id===userId;
+   toggle.addEventListener('click',async()=>{
+    if(!confirm((member.disabled?'Reativar':'Desativar')+' o acesso de '+member.name+'?'))return;
+    await manageMember(member.disabled?'activate':'deactivate',{user_id:member.id});
+   });card.append(toggle);container.append(card);
+  }
+  teamMsg('Equipe carregada: '+members.length+' pessoa(s). Convites e alterações exigem confirmação.');
+ }catch(e){teamMsg(e.message||'Não foi possível carregar a equipe.');$('teamMembers').textContent='Não foi possível carregar a lista. Confira a mensagem acima.';}
+ finally{teamBusy=false;$('teamReload').disabled=false;$('teamInvite').disabled=false;}
+}
+async function manageMember(action,payload){
+ if(teamBusy)return;teamBusy=true;$('teamReload').disabled=true;$('teamInvite').disabled=true;teamMsg('Salvando alteração...');
+ try{const res=await teamRequest(action,payload);teamMsg(res.message||'Alteração concluída.');}
+ catch(e){teamMsg(e.message||'Não foi possível concluir. Verifique antes de repetir.');}
+ finally{teamBusy=false;$('teamReload').disabled=false;$('teamInvite').disabled=false;}
+ await loadTeamMembers();
+}
+$('teamInvite').addEventListener('click',async()=>{
+ const name=$('teamName').value.trim(),email=$('teamEmail').value.trim().toLowerCase(),newRole=$('teamRole').value;
+ if(name.length<2||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){teamMsg('Preencha nome e e-mail individual válidos.');return;}
+ if(!confirm('Enviar convite para '+email+' com cargo '+teamRoleLabel(newRole)+'?'))return;
+ if(teamBusy)return;teamBusy=true;$('teamInvite').disabled=true;$('teamReload').disabled=true;teamMsg('Enviando convite...');
+ let success=false;
+ try{const res=await teamRequest('invite',{name,email,role:newRole});success=true;teamMsg(res.message||'Convite enviado.');$('teamName').value='';$('teamEmail').value='';}
+ catch(e){teamMsg(e.message||'Não foi possível confirmar o convite. Confira os usuários antes de tentar novamente.');}
+ finally{teamBusy=false;$('teamInvite').disabled=false;$('teamReload').disabled=false;}
+ if(success)await loadTeamMembers();
+});
+$('teamReload').addEventListener('click',loadTeamMembers);
+// A listagem é carregada apenas sob ação da administradora, quando abrir Ajustes.
+const originalLoadSettings=loadSettings;
+loadSettings=async function(){await originalLoadSettings();if(role==='administradora')loadTeamMembers();};
+
 // Recupera automaticamente uma sessão ainda válida após atualizar a página.
 // O navegador armazena apenas a sessão gerenciada pelo Supabase Auth, nunca a senha digitada.
 async function restoreSavedSession(){
@@ -401,13 +495,25 @@ async function restoreSavedSession(){
   try{
     const {data,error}=await db.auth.getSession();
     if(error||!data?.session)return;
-    await authorize(); // Revalida usuário e cargo no servidor antes de mostrar o painel.
+    await authorize();
+    if(['invite','recovery'].includes(initialAuthType))show('passwordSetup'); // Revalida usuário e cargo no servidor antes de mostrar o painel.
   }catch(error){
     // Em caso de sessão expirada, permissão revogada ou armazenamento indisponível,
     // a tela de login permanece acessível, sem registrar o usuário automaticamente.
     userId=null;role=null;
   }
 }
+
+$('ownPasswordButton').addEventListener('click',()=>{$('ownPasswordMessage').textContent='';show('passwordSetup');});
+$('ownPasswordBack').addEventListener('click',()=>{$('ownPasswordForm').reset();show(userId?'admin':'staff');});
+$('ownPasswordForm').addEventListener('submit',async e=>{
+ e.preventDefault();const btn=e.currentTarget.querySelector('[type=submit]');const msg=$('ownPasswordMessage');const p=$('newOwnPassword').value;
+ if(p.length<8||p!==$('confirmOwnPassword').value){msg.textContent='As senhas devem ser iguais e ter pelo menos 8 caracteres.';return;}
+ btn.disabled=true;msg.textContent='Salvando...';
+ try{const {data,error}=await db.auth.getUser();if(error||!data?.user)throw Error('Sessão inválida. Entre novamente ou solicite novo convite.');const result=await db.auth.updateUser({password:p});if(result.error)throw result.error;$('ownPasswordForm').reset();await authorize();alert('Senha salva com sucesso.');}
+ catch(err){msg.textContent=err.message||'Não foi possível salvar a senha.';}finally{btn.disabled=false;}
+});
+
 restoreSavedSession();
 </script>
 </body>
