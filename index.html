@@ -216,6 +216,7 @@ function renderClientResults(rows){
   head.append(title,tag);card.append(head);
   const info=document.createElement('div');info.className='contact-meta';
   info.textContent='WhatsApp: '+(c.whatsapp||'Não informado')+(c.curso?' • Curso: '+c.curso:'');card.append(info);
+  if(c.observacoes){const details=document.createElement('details');const title=document.createElement('summary');title.textContent='Observações anteriores';const notes=document.createElement('p');notes.style.whiteSpace='pre-wrap';notes.textContent=c.observacoes;details.append(title,notes);card.append(details);}
   const phone=phoneForContact(c.whatsapp);
   if(phone){
    const actions=document.createElement('div');actions.className='contact-actions';
@@ -241,11 +242,11 @@ async function searchClients(){
   const results=[];const ids=new Set();
   // Consultas independentes, evitando interpolar operadores na expressão PostgREST .or().
   if(cleaned.length>=2){
-   const {data,error}=await db.from('clientes').select('id,nome,whatsapp,curso,tipo_cliente').ilike('nome','%'+cleaned+'%').limit(25);
+   const {data,error}=await db.from('clientes').select('id,nome,whatsapp,curso,tipo_cliente,observacoes').ilike('nome','%'+cleaned+'%').limit(25);
    if(error)throw error;for(const row of data||[]){if(!ids.has(row.id)){ids.add(row.id);results.push(row)}}
   }
   if(digits.length>=4){
-   const {data,error}=await db.from('clientes').select('id,nome,whatsapp,curso,tipo_cliente').ilike('whatsapp','%'+digits+'%').limit(25);
+   const {data,error}=await db.from('clientes').select('id,nome,whatsapp,curso,tipo_cliente,observacoes').ilike('whatsapp','%'+digits+'%').limit(25);
    if(error)throw error;for(const row of data||[]){if(!ids.has(row.id)){ids.add(row.id);results.push(row)}}
   }
   renderClientResults(results);
@@ -344,6 +345,17 @@ function bookingCard(item){
    finally{historyButton.disabled=false;}
  });
  row.append(historyButton,historyBox);
+ const notes=document.createElement('div');notes.className='booking-manage';
+ const label=document.createElement('label');label.textContent='Observações do atendimento';
+ const field=document.createElement('textarea');field.rows=3;field.maxLength=3000;field.placeholder='Justifique o status ou registre o que foi conversado.';field.setAttribute('aria-label','Observação do atendimento');
+ const save=document.createElement('button');save.type='button';save.className='btn primary';save.textContent='Salvar observação';
+ const see=document.createElement('button');see.type='button';see.className='btn';see.textContent='Ver observações anteriores';
+ const feedback=document.createElement('p');feedback.className='booking-status';feedback.setAttribute('role','status');
+ const list=document.createElement('div');list.className='booking-status hidden';
+ async function loadNotes(){list.classList.remove('hidden');list.textContent='Consultando observações...';try{const {data,error}=await db.from('observacoes_agendamentos').select('observacao,autor_email,criado_em').eq('agendamento_id',item.id).order('criado_em',{ascending:false}).limit(100);if(error)throw error;list.replaceChildren();if(!data?.length)list.textContent='Nenhuma observação registrada.';else for(const n of data){const p=document.createElement('p');p.style.whiteSpace='pre-wrap';p.textContent=new Date(n.criado_em).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})+' • '+(n.autor_email||'Equipe')+'\n'+n.observacao;list.append(p);}}catch(e){list.textContent='Não foi possível consultar as observações. Confira a instalação no Supabase.';}}
+ see.addEventListener('click',()=>{if(list.classList.contains('hidden'))loadNotes();else list.classList.add('hidden');});
+ save.addEventListener('click',async()=>{const value=field.value.trim();if(!value){feedback.textContent='Escreva uma observação.';return;}save.disabled=true;feedback.textContent='Salvando...';try{const {error}=await db.rpc('salvar_observacao_agendamento',{p_id:item.id,p_observacao:value});if(error)throw error;field.value='';feedback.textContent='Observação salva!';await loadNotes();}catch(e){feedback.textContent='Não foi possível confirmar o salvamento. Confira o histórico antes de repetir.';}finally{save.disabled=false;}});
+ notes.append(label,field,save,see,feedback,list);row.append(notes);
  return row;
 }
 let bookingBusy=false;
